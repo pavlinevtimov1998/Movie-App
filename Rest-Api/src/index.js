@@ -1,12 +1,15 @@
 const express = require("express");
 
-
 const { initializeDatabaze } = require("./config/dbConfig");
-const cors = require('./middlewares/cors');
+const cors = require("./middlewares/cors");
+const router = require("./routes");
 
 const app = express();
 
-app.use(cors())
+app.use(cors());
+
+app.use(express.json())
+app.use(router);
 
 initializeDatabaze()
   .then(() => {
