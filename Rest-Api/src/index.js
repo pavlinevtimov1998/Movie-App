@@ -1,4 +1,5 @@
 const express = require("express");
+const cookieParser = require('cookie-parser');
 
 const { initializeDatabaze } = require("./config/dbConfig");
 const cors = require("./middlewares/cors");
@@ -9,6 +10,7 @@ const app = express();
 app.use(cors());
 
 app.use(express.json());
+app.use(cookieParser('cookie'));
 app.use(router);
 
 initializeDatabaze()

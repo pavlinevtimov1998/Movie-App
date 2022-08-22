@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
-
+const jwt = require("jsonwebtoken");
 // TODO: Add better validation!
 
 const User = require("../models/UserModel");
@@ -29,13 +29,16 @@ exports.login = async (req, res) => {
 
     const auth = await bcrypt.compare(password, user.password);
 
-    console.log(auth);
     if (!auth) {
       return res.status(404).json({ message: "wrong username or password!" });
     }
 
     let userData = parseDocument(user);
     userData = removePassword(userData);
+
+    const token = jwt.sign({ id: user._id }, "sercret", { expiresIn: "1d" });
+
+    res.cookie("cookie", token, { httpOnly: true });
 
     res.status(200).json(userData);
   } catch (err) {}
