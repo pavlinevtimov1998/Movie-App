@@ -12,7 +12,7 @@ router.post("/register", async (req, res) => {
       username,
       password,
     });
-    console.log(token);
+    
     res.cookie(cookieProp, token, { httpOnly: true });
 
     res.status(201).json(userData);
