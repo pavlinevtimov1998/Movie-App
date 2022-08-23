@@ -13,7 +13,7 @@ exports.register = async (data) => {
 
   console.log(userData);
 
-  const token = jwtPromise(userData._id, sercret);
+  const token = await jwtPromise(userData._id, sercret);
 
   return { userData, token };
 };
@@ -38,7 +38,7 @@ exports.login = async (data) => {
   let userData = parseDocument(user);
   userData = removePassword(userData);
 
-  const token = jwtPromise(user._id, sercret);
+  const token = await jwtPromise(user._id, sercret);
 
   return { userData, token };
 };
