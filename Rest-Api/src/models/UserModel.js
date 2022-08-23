@@ -1,12 +1,11 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-
-const saltRounds = 10;
+const { saltRounds } = require("../config/constants");
 
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: [true, 'Username is required!'],
+    required: [true, "Username is required!"],
     unique: true,
     minLength: [6, "Username should be at least 6 characters!"],
     validate: {
@@ -19,7 +18,7 @@ const UserSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: [true, 'Email is required!'],
+    required: [true, "Email is required!"],
     unique: true,
     validate: {
       validator: function (value) {
@@ -30,7 +29,7 @@ const UserSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    reuqired: true,
+    reuqired: [true, "Password is required!"],
     minLength: [6, "Password should be at least 6 characters"],
   },
 });
