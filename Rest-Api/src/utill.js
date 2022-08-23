@@ -14,3 +14,6 @@ exports.jwtPromise = (id, secret) => {
 
   return jwtSignPromise({ id }, secret, { expiresIn: "1d" });
 };
+
+exports.trimData = (data) =>
+  data.reduce((a, [k, v]) => Object.assign(a, { [k]: v.trim() }), {});
