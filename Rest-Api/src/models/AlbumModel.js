@@ -22,7 +22,7 @@ const AlbumSchema = new mongoose.Schema({
       message: () => "Album image should be valid URL!",
     },
   },
-  releaseData: {
+  releaseDate: {
     type: String,
     required: [true, "Release date is required!"],
     validate: {
@@ -62,7 +62,7 @@ const AlbumSchema = new mongoose.Schema({
 
 const Album = mongoose.model("Album", AlbumSchema);
 
-exports.Album = Album;
+module.exports = Album;
 
 // {
 //     name,
