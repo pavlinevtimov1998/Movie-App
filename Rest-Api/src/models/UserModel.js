@@ -6,10 +6,10 @@ const saltRounds = 10;
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: true,
+    required: [true, 'Username is required!'],
     unique: true,
     minLength: [6, "Username should be at least 6 characters!"],
-    valitate: {
+    validate: {
       validator: (value) => {
         return /[a-zA-Z0-9_-]+/g.test(value);
       },
@@ -19,10 +19,10 @@ const UserSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: true,
+    required: [true, 'Email is required!'],
     unique: true,
-    valitate: {
-      validator: (value) => {
+    validate: {
+      validator: function (value) {
         return /[a-zA-Z0-9]{6,}@[a-zA-Z]+\.[a-z]+/g.test(value);
       },
       message: () => "Invalid email!",
