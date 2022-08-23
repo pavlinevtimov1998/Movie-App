@@ -1,27 +1,20 @@
 const router = require("express").Router();
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-// TODO: Add better validation!
 
-const User = require("../models/UserModel");
-const { removePassword, parseDocument } = require("../utill");
+const authService = require("../services/authService");
 
-exports.register = async (req, res) => {
+router.post("/register", async (req, res) => {
   const { email, username, password } = req.body;
 
   try {
-    const user = await User.create({ username, email, password });
+    const user = await authService.register({ email, username, password });
 
-    let userData = parseDocument(user);
-    userData = removePassword(userData);
-
-    res.status(201).json(userData);
+    res.status(201).json(user);
   } catch (err) {
     res.status(400).json(err);
   }
-};
+});
 
-exports.login = async (req, res) => {
+router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -42,6 +35,6 @@ exports.login = async (req, res) => {
 
     res.status(200).json(userData);
   } catch (err) {}
-};
+});
 
-exports.exports = router;
+module.exports = router;
