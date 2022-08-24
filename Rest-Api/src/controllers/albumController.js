@@ -1,13 +1,16 @@
 const router = require("express").Router();
 
+const { auth } = require("../middlewares/authMiddleware");
 const albumService = require("../services/albumService");
 const { trimData } = require("../utill");
 
-router.post("/albums", async (req, res) => {
+router.post("/albums", auth, async (req, res) => {
   let albumData = Object.entries(req.body);
+  const userId = res.userId;
 
   try {
     albumData = trimData(albumData);
+    albumData["ownerId"] = userId;
 
     const album = await albumService.createAlbum(albumData);
 
