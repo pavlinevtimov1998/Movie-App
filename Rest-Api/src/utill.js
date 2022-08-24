@@ -15,5 +15,11 @@ exports.jwtPromise = (id, secret) => {
   return jwtSignPromise({ id }, secret, { expiresIn: "1d" });
 };
 
+exports.jwtVerify = (token, secret) => {
+  const jwtVerifyPromise = promisify(jwt.verify);
+
+  return jwtVerifyPromise(token, secret);
+};
+
 exports.trimData = (data) =>
   data.reduce((a, [k, v]) => Object.assign(a, { [k]: v.trim() }), {});
