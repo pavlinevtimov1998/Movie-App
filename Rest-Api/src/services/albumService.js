@@ -9,5 +9,5 @@ exports.getOne = (albumId) => Album.findOne({ _id: albumId });
 exports.deleteOne = (albumId, userId) =>
   Album.findOneAndDelete({ _id: albumId, ownerId: userId });
 
-exports.editAlbum = (albumId, albumData) =>
-  Album.findByIdAndUpdate({ _id: albumId }, albumData);
+exports.editAlbum = (albumId, albumData, ownerId) =>
+  Album.findOneAndUpdate({ _id: albumId, ownerId }, albumData);
