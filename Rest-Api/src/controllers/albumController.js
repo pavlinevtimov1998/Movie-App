@@ -39,4 +39,16 @@ router.get("/albums/:albumId", async (req, res) => {
   }
 });
 
+router.delete("/albums/:albumId", async (req, res) => {
+  const albumId = req.params.albumId;
+
+  try {
+    const album = await albumService.deleteOne(albumId);
+
+    res.status(200).json({ album, message: "Successfull deleting!" });
+  } catch (err) {
+    res.status(404).json({ message: "Not found!" });
+  }
+});
+
 module.exports = router;
