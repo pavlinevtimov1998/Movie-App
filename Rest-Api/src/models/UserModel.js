@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+
 const { saltRounds } = require("../config/constants");
+
+const { ObjectId } = mongoose.Schema.Types;
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -32,6 +35,12 @@ const UserSchema = new mongoose.Schema({
     reuqired: [true, "Password is required!"],
     minLength: [6, "Password should be at least 6 characters"],
   },
+  albums: [
+    {
+      type: ObjectId,
+      ref: "Album",
+    },
+  ],
 });
 
 UserSchema.pre("save", function (next) {
