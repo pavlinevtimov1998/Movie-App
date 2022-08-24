@@ -18,13 +18,24 @@ router.post("/albums", async (req, res) => {
 });
 
 router.get("/albums", async (req, res) => {
-    
   try {
     const albums = await albumService.getAll();
 
     res.status(200).json(albums);
   } catch (err) {
     res.status(400).json(err);
+  }
+});
+
+router.get("/albums/:albumId", async (req, res) => {
+  const albumId = req.params.albumId;
+
+  try {
+    const album = await albumService.getOne(albumId);
+
+    res.status(200).json(album);
+  } catch (err) {
+    res.status(400).json({ message: "No results!" });
   }
 });
 
