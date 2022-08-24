@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const { cookieProp } = require("../config/constants");
+const { cookieName } = require("../config/constants");
 const authService = require("../services/authService");
 
 router.post("/register", async (req, res) => {
@@ -13,7 +13,7 @@ router.post("/register", async (req, res) => {
       password,
     });
     
-    res.cookie(cookieProp, token, { httpOnly: true });
+    res.cookie(cookieName, token, { httpOnly: true });
 
     res.status(201).json(userData);
   } catch (err) {
@@ -25,9 +25,9 @@ router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const { userData, token } = await authService.login(data);
+    const { userData, token } = await authService.login({username, password});
 
-    res.cookie(cookieProp, token, { httpOnly: true });
+    res.cookie(cookieName, token, { httpOnly: true });
 
     res.status(200).json(userData);
   } catch (err) {
