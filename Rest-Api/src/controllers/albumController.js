@@ -17,4 +17,15 @@ router.post("/albums", async (req, res) => {
   }
 });
 
+router.get("/albums", async (req, res) => {
+    
+  try {
+    const albums = await albumService.getAll();
+
+    res.status(200).json(albums);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
 module.exports = router;
