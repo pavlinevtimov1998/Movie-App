@@ -51,4 +51,19 @@ router.delete("/albums/:albumId", async (req, res) => {
   }
 });
 
+router.put("/albums/:albumId", async (req, res) => {
+  const albumId = req.params.albumId;
+  let albumData = Object.entries(req.body);
+
+  try {
+    albumData = trimData(albumData);
+
+    const album = await albumService.editAlbum(albumId, albumData);
+
+    res.status(201).json({ message: "Successfull editing!" });
+  } catch (err) {
+    res.status(404).json({ message: "Not found!" });
+  }
+});
+
 module.exports = router;
