@@ -42,3 +42,18 @@ exports.login = async (data) => {
 
   return { userData, token };
 };
+
+exports.getUser = async (userId) => {
+  const user = await User.findById({ _id: userId });
+
+  if (!user) {
+    throw {
+      message: "Can't find user!",
+    };
+  }
+
+  let userData = parseDocument(user);
+  userData = removePassword(userData);
+
+  return userData;
+};
