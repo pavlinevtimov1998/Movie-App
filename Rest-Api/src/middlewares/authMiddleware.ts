@@ -17,7 +17,7 @@ export const authMiddleware = async (
 ) => {
   const token: string = req.cookies[cookieName] || "";
 
-
+  
   try {
     const decodedToken = (await jwtVerify(token, sercret)) as JwtPayload;
 
