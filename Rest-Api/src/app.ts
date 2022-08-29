@@ -20,15 +20,3 @@ initializeDatabaze()
   .catch((err) => {
     console.error(err);
   });
-
-// const { initializeDatabaze } = require("./config/dbConfig");
-// const cors = require("./middlewares/cors");
-// const router = require("./routes");
-
-// const app = express();
-
-// app.use(cors());
-
-// app.use(express.json());
-// app.use(cookieParser());
-// app.use(router);
