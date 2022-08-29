@@ -63,8 +63,8 @@ const AlbumSchema = new Schema<IAlbum>(
       required: true,
       minLength: [10, "Description should be at least 10 characters!"],
     },
-    ownerId: {
-      type: ObjectId,
+    _ownerId: {
+      type: String,
       ref: "User",
     },
     likes: [
