@@ -3,8 +3,9 @@ import { Router } from "express";
 const router = Router();
 
 import albumController from "./constrollers/albumController";
+import authController from './constrollers/authController'
 
-// router.use("/users", authController);
+router.use("/users", authController);
 
 router.use("/data", albumController);
 
