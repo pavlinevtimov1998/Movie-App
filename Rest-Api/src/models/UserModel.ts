@@ -2,7 +2,7 @@ import { Schema, Types, model } from "mongoose";
 import bcrypt from "bcrypt";
 
 import { saltRounds } from "../config/constants";
-import { IUser } from "./modelInterfaces";
+import { IUser } from "./interfaces";
 
 const { ObjectId } = Types;
 
