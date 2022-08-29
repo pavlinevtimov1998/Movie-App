@@ -40,6 +40,12 @@ router.get("/albums/:albumId", async (req: Request, res: Response) => {
   try {
     const album = await Album.findById({ _id: albumId });
 
+    if(!album) {
+      throw {
+        message: "No results!",
+      }
+    }
+
     res.status(200).json(album);
   } catch (err) {
     res.status(404).json({ message: "No results!" });
@@ -66,6 +72,37 @@ router.delete(
       }
 
       res.status(200).json({ album, message: "Successfull deleted!" });
+    } catch (err) {
+      res.status(404).json(err);
+    }
+  }
+);
+
+router.put(
+  "/albums/:albumId",
+  authMiddleware,
+  async (req: Request, res: Response) => {
+    const albumId = req.params.albumId;
+    const userId = req.userId;
+
+    let albumData = Object.entries(req.body) as [string, string][];
+
+    try {
+      const trimmedData = trimData(albumData) as IAlbum;
+
+      const album = await Album.findOneAndUpdate(
+        { _id: albumId, _ownerId: userId },
+        trimmedData,
+        { runValidators: true }
+      );
+
+      if (!album) {
+        throw {
+          message: "Not Found!",
+        };
+      }
+
+      res.status(201).json({ message: "Successfull editing!" });
     } catch (err) {
       res.status(404).json(err);
     }
