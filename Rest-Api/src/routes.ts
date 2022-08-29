@@ -2,13 +2,12 @@ import { Router } from "express";
 
 const router = Router();
 
-// const authController = require("./controllers/authController");
-// const albumsConstroller = require('./controllers/albumController');
+import albumController from "./constrollers/albumController";
 
 // router.use("/users", authController);
 
-// router.use('/data', albumsConstroller);
+router.use("/data", albumController);
 
 // module.exports = router;
 
-export { router };
+export default router;
