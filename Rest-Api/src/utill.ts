@@ -3,7 +3,7 @@ import { IAlbum, IUser } from "./models/interfaces";
 
 export const removePassword = (
   data: IUser
-): { email: string; username: string } => {
+): { email: string; username: string; id?: string } => {
   const { password, __v, ...user } = data;
 
   return user;
