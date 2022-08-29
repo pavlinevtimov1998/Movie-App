@@ -46,4 +46,30 @@ router.get("/albums/:albumId", async (req: Request, res: Response) => {
   }
 });
 
+router.delete(
+  "/albums/:albumId",
+  authMiddleware,
+  async (req: Request, res: Response) => {
+    const albumId = req.params.albumId;
+    const userId = req.userId;
+
+    try {
+      const album = await Album.findOneAndDelete({
+        _id: albumId,
+        _ownerId: userId,
+      });
+
+      if (!album) {
+        throw {
+          message: "Not Found!",
+        };
+      }
+
+      res.status(200).json({ album, message: "Successfull deleted!" });
+    } catch (err) {
+      res.status(404).json(err);
+    }
+  }
+);
+
 export default router;
