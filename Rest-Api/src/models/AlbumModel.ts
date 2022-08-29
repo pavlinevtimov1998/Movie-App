@@ -1,6 +1,6 @@
 import { Schema, Types, model } from "mongoose";
 
-import { IAlbum } from "./modelInterfaces";
+import { IAlbum } from "./interfaces";
 
 const { ObjectId } = Types;
 
