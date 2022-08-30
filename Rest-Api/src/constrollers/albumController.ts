@@ -40,10 +40,10 @@ router.get("/albums/:albumId", async (req: Request, res: Response) => {
   try {
     const album = await Album.findById({ _id: albumId });
 
-    if(!album) {
+    if (!album) {
       throw {
         message: "No results!",
-      }
+      };
     }
 
     res.status(200).json(album);
@@ -93,7 +93,7 @@ router.put(
       const album = await Album.findOneAndUpdate(
         { _id: albumId, _ownerId: userId },
         trimmedData,
-        { runValidators: true }
+        { new: true, runValidators: true }
       );
 
       if (!album) {
