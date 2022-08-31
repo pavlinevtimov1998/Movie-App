@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import { authMiddleware } from "../middlewares/authMiddleware";
 import { Album } from "../models/AlbumModel";
 import { IAlbum } from "../models/interfaces";
+import { getQuery } from "../utill";
 
 const router = Router();
 
@@ -22,13 +23,25 @@ router.post("/albums", authMiddleware, async (req: Request, res: Response) => {
 });
 
 router.get("/albums", async (req: Request, res: Response) => {
-  const queryObj = { ...req.query };
-  console.log(queryObj);
-  
-  try {
-    const albums = await Album.find({});
+  let queryObj = { ...req.query };
 
-    res.status(200).json(albums);
+  queryObj = getQuery(queryObj);
+
+  try {
+    let document = Album.find(queryObj);
+
+    if (req.query.sort) {
+      const query = req.query.sort as string;
+
+      const sortBy = query.split(",").join(" ");
+      document = document.sort(sortBy);
+    } else {
+      document = document.sort("-createdAt");
+    }
+
+    const album = await document;
+
+    res.status(200).json(album);
   } catch (err) {
     res.status(400).json(err);
   }

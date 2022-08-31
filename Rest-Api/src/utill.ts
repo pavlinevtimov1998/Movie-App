@@ -35,3 +35,15 @@ export const jwtVerify = (
     });
   });
 };
+
+export const getQuery = (queryObj: any) => {
+  const excludedFields = ["sort", "page", "limit", "fields"];
+  excludedFields.forEach((field) => delete queryObj[field]);
+
+  return JSON.parse(
+    JSON.stringify(queryObj).replace(
+      /\b(gte|gt|lt|lte)\b/g,
+      (match) => `$${match}`
+    )
+  );
+};
