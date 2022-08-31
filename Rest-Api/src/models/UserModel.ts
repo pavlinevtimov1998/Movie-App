@@ -9,6 +9,7 @@ const { ObjectId } = Types;
 const UserSchema = new Schema<IUser>({
   username: {
     type: String,
+    trim: true,
     required: [true, "Username is required!"],
     unique: true,
     minLength: [6, "Username should be at least 6 characters!"],
@@ -22,6 +23,7 @@ const UserSchema = new Schema<IUser>({
   },
   email: {
     type: String,
+    trim: true,
     required: [true, "Email is required!"],
     unique: true,
     validate: {
@@ -33,6 +35,7 @@ const UserSchema = new Schema<IUser>({
   },
   password: {
     type: String,
+    trim: true,
     reuqired: [true, "Password is required!"],
     minLength: [6, "Password should be at least 6 characters"],
   },

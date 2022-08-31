@@ -8,6 +8,7 @@ const AlbumSchema = new Schema<IAlbum>(
   {
     name: {
       type: String,
+      trim: true,
       required: true,
       minLength: [5, "Album name should be at least 5 characters!"],
       validate: {
@@ -29,6 +30,7 @@ const AlbumSchema = new Schema<IAlbum>(
     },
     releaseDate: {
       type: String,
+      trim: true,
       required: [true, "Release date is required!"],
       validate: {
         validator: function (value: string) {
@@ -39,6 +41,7 @@ const AlbumSchema = new Schema<IAlbum>(
     },
     artist: {
       type: String,
+      trim: true,
       required: true,
       minLength: [5, "Artist name should be at least 5 characters!"],
       validate: {
@@ -50,6 +53,7 @@ const AlbumSchema = new Schema<IAlbum>(
     },
     genre: {
       type: String,
+      trim: true,
       required: [true, "Genre is required!"],
       validate: {
         validator: function (value: string) {
@@ -60,6 +64,7 @@ const AlbumSchema = new Schema<IAlbum>(
     },
     description: {
       type: String,
+      trim: true,
       required: true,
       minLength: [10, "Description should be at least 10 characters!"],
     },

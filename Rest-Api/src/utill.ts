@@ -35,6 +35,3 @@ export const jwtVerify = (
     });
   });
 };
-
-export const trimData = (data: [string, string][]) =>
-  data.reduce((a, [k, v]) => Object.assign(a, { [k]: v.trim() }), {});

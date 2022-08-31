@@ -2,14 +2,11 @@ import { Router, Request, Response } from "express";
 import { authMiddleware } from "../middlewares/authMiddleware";
 import { Album } from "../models/AlbumModel";
 import { IAlbum } from "../models/interfaces";
-import { trimData } from "../utill";
 
 const router = Router();
 
 router.post("/albums", authMiddleware, async (req: Request, res: Response) => {
-  const data = Object.entries(req.body) as [string, string][];
-
-  const albumData = trimData(data) as IAlbum;
+  const albumData = req.body as IAlbum;
 
   if (req.userId) {
     albumData._ownerId = req.userId;
@@ -85,14 +82,12 @@ router.put(
     const albumId = req.params.albumId;
     const userId = req.userId;
 
-    let albumData = Object.entries(req.body) as [string, string][];
+    let albumData = req.body as IAlbum;
 
     try {
-      const trimmedData = trimData(albumData) as IAlbum;
-
       const album = await Album.findOneAndUpdate(
         { _id: albumId, _ownerId: userId },
-        trimmedData,
+        albumData,
         { new: true, runValidators: true }
       );
 
