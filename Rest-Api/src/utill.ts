@@ -1,4 +1,6 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
+import { Document, Query, Types } from "mongoose";
+
 import { IAlbum, IUser } from "./models/interfaces";
 
 export const removePassword = (
@@ -36,14 +38,67 @@ export const jwtVerify = (
   });
 };
 
-export const getQuery = (queryObj: any) => {
-  const excludedFields = ["sort", "page", "limit", "fields"];
-  excludedFields.forEach((field) => delete queryObj[field]);
+export class Sorting {
+  constructor(
+    public query: Query<
+      (Document<unknown, any, IAlbum> &
+        IAlbum & {
+          _id: Types.ObjectId;
+        })[],
+      Document<unknown, any, IAlbum> &
+        IAlbum & {
+          _id: Types.ObjectId;
+        },
+      {},
+      IAlbum
+    >,
+    public queryParams: { [key: string]: string }
+  ) {
+    this.sort();
+    this.fields();
+  }
 
-  return JSON.parse(
-    JSON.stringify(queryObj).replace(
-      /\b(gte|gt|lt|lte)\b/g,
-      (match) => `$${match}`
-    )
-  );
-};
+  filter() {
+    let queryObj = { ...this.queryParams };
+
+    const excludedFields = ["sort", "page", "limit", "fields"];
+    excludedFields.forEach((field) => delete queryObj[field]);
+
+    queryObj = JSON.parse(
+      JSON.stringify(queryObj).replace(
+        /\b(gte|gt|lt|lte)\b/g,
+        (match) => `$${match}`
+      )
+    );
+
+    this.query = this.query.find(queryObj);
+
+    return this;
+  }
+
+  sort() {
+    if (this.queryParams.sort) {
+      const query = this.queryParams.sort as string;
+
+      const sortBy = query.split(",").join(" ");
+      this.query = this.query.sort(sortBy);
+    } else {
+      this.query = this.query.sort("-createdAt");
+    }
+
+    return this;
+  }
+
+  fields() {
+    if (this.queryParams.fields) {
+      let fields = this.queryParams.fields as string;
+      fields = fields.split(",").join(" ");
+
+      this.query = this.query.select(fields + " -__v -updatedAt");
+    } else {
+      this.query = this.query.select("-__v -updatedAt");
+    }
+
+    return this;
+  }
+}
