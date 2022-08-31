@@ -53,10 +53,7 @@ export class Sorting {
       IAlbum
     >,
     public queryParams: { [key: string]: string }
-  ) {
-    this.sort();
-    this.fields();
-  }
+  ) {}
 
   filter() {
     let queryObj = { ...this.queryParams };
