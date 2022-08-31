@@ -1,6 +1,16 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { IAlbum, IUser } from "./models/interfaces";
 
+export const removePassword = (
+  data: IUser
+): { email: string; username: string; id?: string } => {
+  const { password, __v, ...user } = data;
+
+  return user;
+};
+
+export const parseDocument = (data: any) => JSON.parse(JSON.stringify(data));
+
 export const jwtPromise = (id: string, secret: string) => {
   return new Promise((resolve, reject) => {
     jwt.sign({ id }, secret, { expiresIn: "1d" }, (err, token) => {
