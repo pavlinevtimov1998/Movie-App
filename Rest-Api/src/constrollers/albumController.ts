@@ -1,8 +1,9 @@
 import { Router, Request, Response } from "express";
+
 import { authMiddleware } from "../middlewares/authMiddleware";
 import { Album } from "../models/AlbumModel";
 import { IAlbum } from "../models/interfaces";
-import { getQuery } from "../utill";
+import { Sorting } from "../utill";
 
 const router = Router();
 
@@ -25,32 +26,18 @@ router.post("/albums", authMiddleware, async (req: Request, res: Response) => {
 router.get("/albums", async (req: Request, res: Response) => {
   let queryObj = { ...req.query };
 
-  queryObj = getQuery(queryObj);
-
   try {
-    let document = Album.find(queryObj);
+    const futures = new Sorting(
+      Album.find(),
+      req.query as { [key: string]: string }
+    )
+      .filter()
+      .sort()
+      .fields();
 
-    if (req.query.sort) {
-      const query = req.query.sort as string;
+    const albums = await futures.query;
 
-      const sortBy = query.split(",").join(" ");
-      document = document.sort(sortBy);
-    } else {
-      document = document.sort("-createdAt");
-    }
-
-    if (req.query.fields) {
-      let fields = req.query.fields as string;
-      fields = fields.split(",").join(" ");
-
-      document = document.select(fields + " -__v -updatedAt");
-    } else {
-      document = document.select("-__v -updatedAt");
-    }
-
-    const album = await document;
-
-    res.status(200).json(album);
+    res.status(200).json(albums);
   } catch (err) {
     res.status(400).json(err);
   }
