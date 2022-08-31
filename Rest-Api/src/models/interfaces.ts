@@ -15,6 +15,8 @@ export interface IAlbum {
   artist: string;
   genre: string;
   description: string;
+  ratingsAverage: number;
+  ratingsQuantity: number;
   _ownerId: string;
   likes?: string[];
 }
