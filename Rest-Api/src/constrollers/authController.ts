@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import { cookieName, sercret } from "../config/constants";
 import { IUser } from "../models/interfaces";
 import { User } from "../models/UserModel";
-import { jwtPromise, parseDocument, removePassword } from "../utill";
+import { jwtPromise, parseDocument, removePassword } from "../utils/utill";
 import { authMiddleware } from "../middlewares/authMiddleware";
 
 const router = Router();
