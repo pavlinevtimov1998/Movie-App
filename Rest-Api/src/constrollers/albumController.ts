@@ -37,6 +37,8 @@ router.get("/albums", async (req: Request, res: Response) => {
 
     const albums = await futures.query;
 
+    console.log(albums);
+
     res.status(200).json(albums);
   } catch (err) {
     res.status(400).json(err);
