@@ -3,7 +3,7 @@ import { Router, Request, Response } from "express";
 import { authMiddleware } from "../middlewares/authMiddleware";
 import { Album } from "../models/AlbumModel";
 import { IAlbum } from "../models/interfaces";
-import { Sorting } from "../utill";
+import { Sorting } from "../utils/utill";
 
 const router = Router();
 
