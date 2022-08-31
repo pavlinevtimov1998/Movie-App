@@ -68,6 +68,14 @@ const AlbumSchema = new Schema<IAlbum>(
       required: true,
       minLength: [10, "Description should be at least 10 characters!"],
     },
+    ratingsAverage: {
+      type: Number,
+      default: 4.5,
+    },
+    ratingsQuantity: {
+      type: Number,
+      default: 0,
+    },
     _ownerId: {
       type: String,
       ref: "User",
