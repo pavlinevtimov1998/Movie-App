@@ -6,13 +6,15 @@ import { IUser } from "../models/interfaces";
 import { User } from "../models/UserModel";
 import { jwtPromise, parseDocument, removePassword } from "../utils/utill";
 import { authMiddleware } from "../middlewares/authMiddleware";
+import { catchAsyncError } from "../utils/catchAsyncErr";
 
 const router = Router();
 
-router.post("/register", async (req: Request, res: Response) => {
-  const { email, username, password } = req.body as IUser;
+router.post(
+  "/register",
+  catchAsyncError(async (req: Request, res: Response) => {
+    const { email, username, password } = req.body as IUser;
 
-  try {
     const userData = await User.create({
       email,
       username,
@@ -27,15 +29,14 @@ router.post("/register", async (req: Request, res: Response) => {
     res.cookie(cookieName, token, { httpOnly: true });
 
     res.status(201).json(publicData);
-  } catch (err) {
-    res.status(400).json(err);
-  }
-});
+  })
+);
 
-router.post("/login", async (req: Request, res: Response) => {
-  const { username, password } = req.body as IUser;
+router.post(
+  "/login",
+  catchAsyncError(async (req: Request, res: Response) => {
+    const { username, password } = req.body as IUser;
 
-  try {
     const user = await User.findOne({ username });
 
     if (!user) {
@@ -60,15 +61,15 @@ router.post("/login", async (req: Request, res: Response) => {
     res.cookie(cookieName, token, { httpOnly: true });
 
     res.status(200).json(publicData);
-  } catch (err) {
-    res.status(400).json(err);
-  }
-});
+  })
+);
 
-router.get("/profile", authMiddleware, async (req: Request, res: Response) => {
-  const userId = req.userId;
+router.get(
+  "/profile",
+  authMiddleware,
+  catchAsyncError(async (req: Request, res: Response) => {
+    const userId = req.userId;
 
-  try {
     const user = await User.findById({ _id: userId });
 
     if (!user) {
@@ -81,9 +82,7 @@ router.get("/profile", authMiddleware, async (req: Request, res: Response) => {
     const publicData = removePassword(parsedData);
 
     res.status(200).json(publicData);
-  } catch (err) {
-    res.status(404).json(err);
-  }
-});
+  })
+);
 
 export default router;
