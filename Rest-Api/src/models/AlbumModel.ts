@@ -79,7 +79,7 @@ const AlbumSchema = new Schema<IAlbum>(
       },
     ],
   },
-  { timestamps: { createdAt: "created_at" } }
+  { timestamps: { createdAt: "createdAt" } }
 );
 
 export const Album = model("Album", AlbumSchema);
