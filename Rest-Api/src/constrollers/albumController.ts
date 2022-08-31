@@ -22,6 +22,9 @@ router.post("/albums", authMiddleware, async (req: Request, res: Response) => {
 });
 
 router.get("/albums", async (req: Request, res: Response) => {
+  const queryObj = { ...req.query };
+  console.log(queryObj);
+  
   try {
     const albums = await Album.find({});
 
