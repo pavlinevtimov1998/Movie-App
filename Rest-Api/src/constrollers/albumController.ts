@@ -39,6 +39,15 @@ router.get("/albums", async (req: Request, res: Response) => {
       document = document.sort("-createdAt");
     }
 
+    if (req.query.fields) {
+      let fields = req.query.fields as string;
+      fields = fields.split(",").join(" ");
+
+      document = document.select(fields + " -__v -updatedAt");
+    } else {
+      document = document.select("-__v -updatedAt");
+    }
+
     const album = await document;
 
     res.status(200).json(album);
