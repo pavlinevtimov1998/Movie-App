@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { JwtPayload } from "jsonwebtoken";
 import { cookieName, sercret } from "../config/constants";
-import { jwtVerify } from "../utill";
+import { jwtVerify } from "../utils/utill";
 
 declare module "express-serve-static-core" {
   interface Request {
