@@ -80,7 +80,7 @@ router.get("/profile", authMiddleware, async (req: Request, res: Response) => {
     const parsedData = parseDocument(user);
     const publicData = removePassword(parsedData);
 
-    res.status(200).json(user);
+    res.status(200).json(publicData);
   } catch (err) {
     res.status(404).json(err);
   }
