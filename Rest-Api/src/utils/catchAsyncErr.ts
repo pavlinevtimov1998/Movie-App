@@ -16,8 +16,6 @@ export const catchAsyncError = (fn: Function) => {
 
         return next(new AppError(message, 400));
       } else {
-        console.log(err.errors);
-
         return next(new AppError(err.message, 400));
       }
     });

@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 
 import { IUser } from "../models/interfaces";
 import { User } from "../models/UserModel";
-import { jwtPromise, parseDocument, removePassword } from "../utils/utill";
+import { jwtPromise } from "../utils/utill";
 import { authMiddleware } from "../middlewares/authMiddleware";
 import { catchAsyncError } from "../utils/catchAsyncErr";
 import { AppError } from "../utils/appError";
@@ -15,23 +15,20 @@ router.post(
   catchAsyncError(async (req: Request, res: Response) => {
     const { email, username, password } = req.body as IUser;
 
-    const userData = await User.create({
+    const user = await User.create({
       email,
       username,
       password,
     });
 
-    const parsedData = parseDocument(userData);
-    const publicData = removePassword(parsedData);
-
-    const token = await jwtPromise(
-      userData._id,
-      process.env.JWT_SECRET as string
-    );
+    const token = await jwtPromise(user._id, process.env.JWT_SECRET as string);
 
     res.cookie(process.env.COOKIE_NAME as string, token, { httpOnly: true });
 
-    res.status(201).json(publicData);
+    res.status(201).json({
+      status: "Success",
+      user,
+    });
   })
 );
 
@@ -40,7 +37,7 @@ router.post(
   catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     const { username, password } = req.body as IUser;
 
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ username }).select("+password");
 
     if (!user) {
       return next(new AppError("Invalid username or password!", 401));
@@ -52,14 +49,17 @@ router.post(
       return next(new AppError("Invalid username or password!", 401));
     }
 
-    const parsedData = parseDocument(user);
-    const publicData = removePassword(parsedData);
 
+    console.log(process.env.JWT_SECRET);
+    
     const token = await jwtPromise(user._id, process.env.JWT_SECRET as string);
 
     res.cookie(process.env.COOKIE_NAME as string, token, { httpOnly: true });
 
-    res.status(200).json(publicData);
+    res.status(200).json({
+      status: "Success",
+      user: { username: user.username, email: user.email },
+    });
   })
 );
 
@@ -75,10 +75,10 @@ router.get(
       return next(new AppError("Can't user with this ID!", 404));
     }
 
-    const parsedData = parseDocument(user);
-    const publicData = removePassword(parsedData);
-
-    res.status(200).json(publicData);
+    res.status(200).json({
+      status: "Success",
+      user,
+    });
   })
 );
 

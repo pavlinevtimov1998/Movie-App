@@ -39,6 +39,7 @@ const UserSchema = new Schema<IUser>({
     trim: true,
     reuqired: [true, "Password is required!"],
     minLength: [6, "Password should be at least 6 characters"],
+    select: false,
   },
   albums: [
     {
