@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
 import bcrypt from "bcrypt";
 
-import { cookieName, sercret } from "../config/constants";
 import { IUser } from "../models/interfaces";
 import { User } from "../models/UserModel";
 import { jwtPromise, parseDocument, removePassword } from "../utils/utill";
@@ -15,19 +14,22 @@ router.post(
   "/register",
   catchAsyncError(async (req: Request, res: Response) => {
     const { email, username, password } = req.body as IUser;
-    
+
     const userData = await User.create({
       email,
       username,
       password,
-    });    
+    });
 
     const parsedData = parseDocument(userData);
     const publicData = removePassword(parsedData);
 
-    const token = await jwtPromise(userData._id, sercret);
+    const token = await jwtPromise(
+      userData._id,
+      process.env.JWT_SECRET as string
+    );
 
-    res.cookie(cookieName, token, { httpOnly: true });
+    res.cookie(process.env.COOKIE_NAME as string, token, { httpOnly: true });
 
     res.status(201).json(publicData);
   })
@@ -53,9 +55,9 @@ router.post(
     const parsedData = parseDocument(user);
     const publicData = removePassword(parsedData);
 
-    const token = await jwtPromise(user._id, sercret);
+    const token = await jwtPromise(user._id, process.env.JWT_SECRET as string);
 
-    res.cookie(cookieName, token, { httpOnly: true });
+    res.cookie(process.env.COOKIE_NAME as string, token, { httpOnly: true });
 
     res.status(200).json(publicData);
   })
