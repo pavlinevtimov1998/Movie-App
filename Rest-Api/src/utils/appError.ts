@@ -4,10 +4,8 @@ export class AppError extends Error {
 
   constructor(public message: string, public statusCode: number) {
     super(message);
-    
-    this.status = `${this.statusCode}`.startsWith("4" || "5")
-      ? "Fail"
-      : "Success";
+
+    this.status = `${this.statusCode}`.startsWith("4") ? "Fail" : "Error";
     this.isOperational = true;
 
     Error.captureStackTrace(this, this.constructor);
