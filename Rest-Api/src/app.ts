@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import router from "./routes";
 import { initializeDatabaze } from "./config/dbConfig";
 import { cors } from "./middlewares/cors";
+import { Server } from "http";
 
 dotenv.config({ path: __dirname + "/config.env" });
 
@@ -20,12 +21,21 @@ app.use(cors);
 app.use(express.json());
 app.use(cookieParser());
 
-initializeDatabaze(databaseUrl!)
-  .then(() => {
-    app.use(router);
+initializeDatabaze(databaseUrl!).then(() => {
+  console.log("DB connection is successfull!");
+});
 
-    app.listen(port, () => console.log(`Listening on port ${port}...`));
-  })
-  .catch((err) => {
-    console.error(err);
+app.use(router);
+
+const server = app.listen(port, () =>
+  console.log(`Listening on port ${port}...`)
+);
+
+process.on("unhandledRejection", (err: Error) => {
+  console.error(err.name + ", " + err.message);
+
+  console.error("Unhandled Rejection! Shutting down...");
+  server.close(() => {
+    process.exit(1);
   });
+});
