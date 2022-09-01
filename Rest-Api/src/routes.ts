@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response, Router } from "express";
 
-const router = Router();
-
 import albumController from "./constrollers/albumController";
 import authController from "./constrollers/authController";
 import { globalErrorHandler } from "./middlewares/globallErrorHandler";
 import { AppError } from "./utils/appError";
+
+const router = Router();
 
 router.use("/users", authController);
 
