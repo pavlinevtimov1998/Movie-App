@@ -46,13 +46,7 @@ router.get(
   catchAsyncError(async (req: Request, res: Response) => {
     const albumId = req.params.albumId;
 
-    const album = await Album.findById({ _id: albumId });
-
-    if (!album) {
-      throw {
-        message: "No results!",
-      };
-    }
+    const album = await Album.findById(albumId);
 
     res.status(200).json(album);
   })
@@ -65,18 +59,12 @@ router.delete(
     const albumId = req.params.albumId;
     const userId = req.userId;
 
-    const album = await Album.findOneAndDelete({
+    await Album.findOneAndDelete({
       _id: albumId,
       _ownerId: userId,
     });
 
-    if (!album) {
-      throw {
-        message: "Not Found!",
-      };
-    }
-
-    res.status(200).json({ album, message: "Successfull deleted!" });
+    res.status(200).json({ message: "Successfull deleted!" });
   })
 );
 
@@ -95,13 +83,7 @@ router.put(
       { new: true, runValidators: true }
     );
 
-    if (!album) {
-      throw {
-        message: "Not Found!",
-      };
-    }
-
-    res.status(201).json({ message: "Successfull editing!" });
+    res.status(201).json({ message: "Successfull editing!", album });
   })
 );
 
