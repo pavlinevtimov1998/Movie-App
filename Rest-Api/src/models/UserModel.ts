@@ -1,8 +1,9 @@
 import { Schema, Types, model } from "mongoose";
 import bcrypt from "bcrypt";
 
-import { saltRounds } from "../config/constants";
 import { IUser } from "./interfaces";
+
+const saltRounds = 10;
 
 const { ObjectId } = Types;
 
