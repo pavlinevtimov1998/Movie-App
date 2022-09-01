@@ -21,11 +21,11 @@ app.use(cors);
 app.use(express.json());
 app.use(cookieParser());
 
+app.use(router);
+
 initializeDatabaze(databaseUrl!).then(() => {
   console.log("DB connection is successfull!");
 });
-
-app.use(router);
 
 const server = app.listen(port, () =>
   console.log(`Listening on port ${port}...`)
