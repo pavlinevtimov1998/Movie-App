@@ -31,9 +31,7 @@ interface IError extends Error {
 }
 
 const handleValidationaError = (err: IError) => {
-  const errors: string[] = Object.values(err.errors).map(
-    (el: { [key: string]: string }) => el.message
-  );
+  const errors: string[] = Object.values(err.errors).map((el) => el.message);
 
   return `Incorrect input. ${errors.join(". ")}`;
 };
