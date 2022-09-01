@@ -1,12 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { JwtPayload } from "jsonwebtoken";
-import { cookieName, sercret } from "../config/constants";
 import { jwtVerify } from "../utils/utill";
 
 declare module "express-serve-static-core" {
   interface Request {
     userId?: string;
-    [cookieName]?: string;
   }
 }
 
@@ -15,11 +13,14 @@ export const authMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
-  const token: string = req.cookies[cookieName] || "";
-
   
+  const token: string = req.cookies[process.env.COOKIE_NAME as string] || "";
+
   try {
-    const decodedToken = (await jwtVerify(token, sercret)) as JwtPayload;
+    const decodedToken = (await jwtVerify(
+      token,
+      process.env.JWT_SECRET as string
+    )) as JwtPayload;
 
     if (decodedToken.id) {
       req.userId = decodedToken.id;
