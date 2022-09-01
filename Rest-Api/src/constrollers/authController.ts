@@ -49,9 +49,6 @@ router.post(
       return next(new AppError("Invalid username or password!", 401));
     }
 
-
-    console.log(process.env.JWT_SECRET);
-    
     const token = await jwtPromise(user._id, process.env.JWT_SECRET as string);
 
     res.cookie(process.env.COOKIE_NAME as string, token, { httpOnly: true });
@@ -67,12 +64,10 @@ router.get(
   "/profile",
   authMiddleware,
   catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
-    const userId = req.userId;
-
-    const user = await User.findById({ _id: userId });
+    const user = req.user;
 
     if (!user) {
-      return next(new AppError("Can't user with this ID!", 404));
+      return next(new AppError("Can't find user!", 404));
     }
 
     res.status(200).json({
