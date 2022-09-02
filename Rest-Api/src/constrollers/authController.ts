@@ -21,7 +21,10 @@ router.post(
       password,
     });
 
-    const token = await jwtPromise(user._id, process.env.JWT_SECRET as string);
+    const token = await jwtPromise(
+      user._id.toString(),
+      process.env.JWT_SECRET as string
+    );
 
     res.cookie(process.env.COOKIE_NAME as string, token, { httpOnly: true });
 
@@ -49,7 +52,10 @@ router.post(
       return next(new AppError("Invalid username or password!", 401));
     }
 
-    const token = await jwtPromise(user._id, process.env.JWT_SECRET as string);
+    const token = await jwtPromise(
+      user._id.toString(),
+      process.env.JWT_SECRET as string
+    );
 
     res.cookie(process.env.COOKIE_NAME as string, token, { httpOnly: true });
 
