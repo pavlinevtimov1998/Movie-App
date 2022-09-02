@@ -1,7 +1,12 @@
 import { Types } from "mongoose";
 
 export interface IUser {
-  _id?: string;
+  _id:
+    | {
+        type: Types.ObjectId;
+        ref: string;
+      }
+    | string;
   username: string;
   email: string;
   password: string;
@@ -17,10 +22,12 @@ export interface IAlbum {
   description: string;
   ratingsAverage: number;
   ratingsQuantity: number;
-  _ownerId: {
-    type: Types.ObjectId;
-    ref: string;
-  };
+  _ownerId:
+    | {
+        type: Types.ObjectId;
+        ref: string;
+      }
+    | string;
   likes?: number;
 }
 
@@ -29,7 +36,7 @@ export interface ILike {
     type: Types.ObjectId;
     ref: string;
   };
-  album: {
+  albumId: {
     type: Types.ObjectId;
     ref: string;
   };

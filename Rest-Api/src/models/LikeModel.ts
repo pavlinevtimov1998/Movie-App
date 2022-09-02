@@ -6,7 +6,7 @@ const LikeSchema = new Schema<ILike>({
     type: Types.ObjectId,
     ref: "User",
   },
-  album: {
+  albumId: {
     type: Types.ObjectId,
     ref: "Album",
   },
