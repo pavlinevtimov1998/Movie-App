@@ -5,8 +5,6 @@ import { IUser } from "./interfaces";
 
 const saltRounds = 10;
 
-const { ObjectId } = Types;
-
 const UserSchema = new Schema<IUser>({
   username: {
     type: String,
@@ -41,12 +39,6 @@ const UserSchema = new Schema<IUser>({
     minLength: [6, "Password should be at least 6 characters"],
     select: false,
   },
-  albums: [
-    {
-      type: ObjectId,
-      ref: "Album",
-    },
-  ],
 });
 
 UserSchema.pre("save", function (next) {

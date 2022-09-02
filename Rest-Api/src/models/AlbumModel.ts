@@ -2,8 +2,6 @@ import { Schema, Types, model } from "mongoose";
 
 import { IAlbum } from "./interfaces";
 
-const { ObjectId } = Types;
-
 const AlbumSchema = new Schema<IAlbum>(
   {
     name: {
@@ -81,15 +79,9 @@ const AlbumSchema = new Schema<IAlbum>(
       default: 0,
     },
     _ownerId: {
-      type: String,
+      type: Types.ObjectId,
       ref: "User",
     },
-    likes: [
-      {
-        type: ObjectId,
-        ref: "User",
-      },
-    ],
   },
   { timestamps: { createdAt: "createdAt" } }
 );
