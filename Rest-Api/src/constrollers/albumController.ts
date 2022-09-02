@@ -14,8 +14,8 @@ router.post(
   catchAsyncError(async (req: Request, res: Response) => {
     const albumData = req.body as IAlbum;
 
-    if (req.userId) {
-      albumData._ownerId = req.userId;
+    if (req.user?._id) {
+      albumData._ownerId = req.user._id;
     }
 
     const createdAlbum = await Album.create(albumData);
@@ -57,7 +57,7 @@ router.delete(
   authMiddleware,
   catchAsyncError(async (req: Request, res: Response) => {
     const albumId = req.params.albumId;
-    const userId = req.userId;
+    const userId = req.user?._id;
 
     await Album.findOneAndDelete({
       _id: albumId,
@@ -73,7 +73,7 @@ router.put(
   authMiddleware,
   catchAsyncError(async (req: Request, res: Response) => {
     const albumId = req.params.albumId;
-    const userId = req.userId;
+    const userId = req.user?._id;
 
     let albumData = req.body as IAlbum;
 
