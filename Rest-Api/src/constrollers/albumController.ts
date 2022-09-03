@@ -71,18 +71,18 @@ router.delete(
 
     if (!album) {
       return next(new AppError("Not found!", 404));
-    } else {
-      await Like.deleteMany({ albumId });
     }
 
-    res.status(200).json({ message: "Successfull deleted!" });
+    await Like.deleteMany({ albumId });
+
+    res.status(204).json();
   })
 );
 
 router.put(
   "/albums/:albumId",
   authMiddleware,
-  catchAsyncError(async (req: Request, res: Response) => {
+  catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     const albumId = req.params.albumId;
     const userId = req.user?._id;
 
@@ -92,7 +92,11 @@ router.put(
       { _id: albumId, _ownerId: userId },
       albumData,
       { new: true, runValidators: true }
-    );
+    ).populate("likes");
+
+    if (!album) {
+      return next(new AppError("Not found!", 404));
+    }
 
     res.status(201).json({ message: "Successfull editing!", album });
   })

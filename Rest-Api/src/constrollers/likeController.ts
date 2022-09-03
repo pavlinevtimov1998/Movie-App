@@ -37,20 +37,16 @@ router.delete(
   catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     const albumId = req.params.albumId;
 
-    const like = await Like.findOne({
+    const like = await Like.findOneAndDelete({
       _ownerId: req.user?._id,
       albumId: albumId,
     });
 
-    if (like) {
-      await Like.findByIdAndDelete(like._id);
-    } else {
-      return next(new AppError("Can't unlike album!", 400));
+    if (!like) {
+      return next(new AppError("Not found!", 404));
     }
 
-    res
-      .status(204)
-      .json({ status: "Success", message: "Successfully unliked album!" });
+    res.status(204).json();
   })
 );
 
