@@ -46,7 +46,9 @@ router.get(
   catchAsyncError(async (req: Request, res: Response) => {
     const albumId = req.params.albumId;
 
-    const album = await Album.findById(albumId);
+    const album = await Album.findById(albumId).populate("likes")
+
+    console.log(album);
 
     res.status(200).json(album);
   })

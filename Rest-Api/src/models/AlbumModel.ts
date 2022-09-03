@@ -83,7 +83,14 @@ const AlbumSchema = new Schema<IAlbum>(
       ref: "User",
     },
   },
-  { timestamps: { createdAt: "createdAt" } }
+  { toJSON: { virtuals: true } }
 );
+
+AlbumSchema.virtual("likes", {
+  ref: "Like",
+  foreignField: "albumId",
+  localField: "_id",
+  count: true,
+});
 
 export const Album = model("Album", AlbumSchema);

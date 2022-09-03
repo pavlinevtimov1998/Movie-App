@@ -13,6 +13,7 @@ export interface IUser {
 }
 
 export interface IAlbum {
+  _id?: string;
   name: string;
   imageUrl: string;
   price: number;
@@ -28,7 +29,10 @@ export interface IAlbum {
         ref: string;
       }
     | string;
-  likes?: number;
+  likes?: {
+    type: Types.ObjectId;
+    ref: string;
+  }[];
 }
 
 export interface ILike {
