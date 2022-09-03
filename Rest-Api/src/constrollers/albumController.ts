@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 
+import likeController from "./likeController";
 import { authMiddleware } from "../middlewares/authMiddleware";
 import { Album } from "../models/AlbumModel";
 import { IAlbum } from "../models/interfaces";
@@ -7,6 +8,8 @@ import { Sorting } from "../utils/utill";
 import { catchAsyncError } from "../utils/catchAsyncErr";
 
 const router = Router();
+
+router.use("/likes", authMiddleware, likeController);
 
 router.post(
   "/albums",
@@ -46,9 +49,7 @@ router.get(
   catchAsyncError(async (req: Request, res: Response) => {
     const albumId = req.params.albumId;
 
-    const album = await Album.findById(albumId).populate("likes")
-
-    console.log(album);
+    const album = await Album.findById(albumId).populate("likes");
 
     res.status(200).json(album);
   })

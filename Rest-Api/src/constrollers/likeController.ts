@@ -33,7 +33,7 @@ router.post(
 );
 
 router.delete(
-  "/revoke/:albumId",
+  "/:albumId/revoke",
   catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     const albumId = req.params.albumId;
 
