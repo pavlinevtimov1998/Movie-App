@@ -26,7 +26,9 @@ export const authMiddleware = catchAsyncError(
     )) as JwtPayload;
 
     if (decodedToken.id) {
-      req.user = await User.findById({ _id: decodedToken.id });
+      req.user = await User.findById({ _id: decodedToken.id }).select(
+        "-__v -updatedAt"
+      );
     }
 
     next();
