@@ -1,4 +1,4 @@
-import { Router, Request, Response } from "express";
+import { Router, Request, Response, NextFunction } from "express";
 
 import likeController from "./likeController";
 import { authMiddleware } from "../middlewares/authMiddleware";
@@ -6,6 +6,8 @@ import { Album } from "../models/AlbumModel";
 import { IAlbum } from "../models/interfaces";
 import { Sorting } from "../utils/utill";
 import { catchAsyncError } from "../utils/catchAsyncErr";
+import { Like } from "../models/LikeModel";
+import { AppError } from "../utils/appError";
 
 const router = Router();
 
@@ -58,14 +60,20 @@ router.get(
 router.delete(
   "/albums/:albumId",
   authMiddleware,
-  catchAsyncError(async (req: Request, res: Response) => {
+  catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     const albumId = req.params.albumId;
     const userId = req.user?._id;
 
-    await Album.findOneAndDelete({
+    const album = await Album.findOneAndDelete({
       _id: albumId,
       _ownerId: userId,
     });
+
+    if (!album) {
+      return next(new AppError("Not found!", 404));
+    } else {
+      await Like.deleteMany({ albumId });
+    }
 
     res.status(200).json({ message: "Successfull deleted!" });
   })
