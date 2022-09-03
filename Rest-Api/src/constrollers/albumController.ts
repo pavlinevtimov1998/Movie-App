@@ -51,7 +51,9 @@ router.get(
   catchAsyncError(async (req: Request, res: Response) => {
     const albumId = req.params.albumId;
 
-    const album = await Album.findById(albumId).populate("likes");
+    const album = await Album.findById(albumId)
+      .populate("likes")
+      .select("-__v -updatedAt");
 
     res.status(200).json(album);
   })
@@ -92,7 +94,9 @@ router.put(
       { _id: albumId, _ownerId: userId },
       albumData,
       { new: true, runValidators: true }
-    ).populate("likes");
+    )
+      .populate("likes")
+      .select("-__v -updatedAt");
 
     if (!album) {
       return next(new AppError("Not found!", 404));
