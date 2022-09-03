@@ -38,7 +38,7 @@ router.get(
       .sort()
       .fields();
 
-    const albums = await futures.query;
+    const albums = await futures.query.populate("likes");
 
     res.status(200).json(albums);
   })
