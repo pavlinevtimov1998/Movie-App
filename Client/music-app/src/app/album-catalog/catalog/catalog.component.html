@@ -1,4 +1,10 @@
-<section id="catalogPage">
-  <h1>All Albums</h1>
-  <app-album-item></app-album-item>
-</section>
+<ng-container *ngIf="!isLoading">
+  <section id="catalogPage">
+    <h1>All Albums</h1>
+    <app-album-item
+      *ngFor="let album of albums"
+      [album]="album"
+    ></app-album-item>
+  </section>
+</ng-container>
+<p *ngIf="isLoading">Loading...</p>
