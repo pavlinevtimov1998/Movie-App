@@ -1,0 +1,10 @@
+#welcomePage {
+  color: #45a29e;
+  font-size: 24px;
+  padding: 30px;
+  margin: 10px;
+}
+
+#welcomePage img {
+  width: 40%;
+}
