@@ -5,7 +5,6 @@ import dotenv from "dotenv";
 import router from "./routes";
 import { initializeDatabaze } from "./config/dbConfig";
 import { cors } from "./middlewares/cors";
-import { Server } from "http";
 
 dotenv.config({ path: __dirname + "/config.env" });
 
