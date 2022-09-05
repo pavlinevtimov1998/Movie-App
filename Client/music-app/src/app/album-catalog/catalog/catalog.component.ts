@@ -11,14 +11,16 @@ import { CatalogService } from '../catalog.service';
 export class CatalogComponent implements OnInit, OnDestroy {
   albums!: IAlbum[];
   subscription!: Subscription;
-
+  isLoading = false;
   constructor(private catalogService: CatalogService) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.subscription = this.catalogService
       .getAlbums()
       .subscribe((albumsData) => {
-        this.albums = albumsData;
+        this.albums = albumsData;        
+        this.isLoading = false;
       });
   }
 
