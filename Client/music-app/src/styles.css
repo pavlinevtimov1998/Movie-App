@@ -4,6 +4,3 @@
 @import "./assets/create.css";
 @import "./assets/catalog.css";
 @import "./assets/details.css";
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
