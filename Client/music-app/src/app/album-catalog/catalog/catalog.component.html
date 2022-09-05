@@ -1,10 +1,5 @@
-<ng-container *ngIf="!isLoading">
-  <section id="catalogPage">
-    <h1>All Albums</h1>
-    <app-album-item
-      *ngFor="let album of albums"
-      [album]="album"
-    ></app-album-item>
-  </section>
-</ng-container>
-<p *ngIf="isLoading">Loading...</p>
+<section id="catalogPage" *ngIf="!isLoading">
+  <h1>All Albums</h1>
+  <app-album-item *ngFor="let album of albums" [album]="album"></app-album-item>
+</section>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
