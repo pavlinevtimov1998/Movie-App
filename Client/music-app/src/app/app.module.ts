@@ -9,10 +9,11 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { CatalogComponent } from './album-catalog/catalog/catalog.component';
 import { AlbumItemComponent } from './album-catalog/album-item/album-item.component';
-import { CatalogService } from './album-catalog/catalog.service';
+import { AlbumService } from './album-catalog/album.service';
+import { DetailsComponent } from './details/details.component';
 
 @NgModule({
-  declarations: [AppComponent, CatalogComponent, AlbumItemComponent],
+  declarations: [AppComponent, CatalogComponent, AlbumItemComponent, DetailsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -21,7 +22,7 @@ import { CatalogService } from './album-catalog/catalog.service';
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
   ],
-  providers: [CatalogService],
+  providers: [AlbumService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
