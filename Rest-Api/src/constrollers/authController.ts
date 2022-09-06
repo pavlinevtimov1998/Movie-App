@@ -21,15 +21,10 @@ router.post(
       password,
     });
 
-    console.log(user);
-    
-
     const token = await jwtPromise(
       user._id.toString(),
       process.env.JWT_SECRET as string
     );
-
-    console.log(token);
 
     res.cookie(process.env.COOKIE_NAME as string, token, {
       httpOnly: true,
