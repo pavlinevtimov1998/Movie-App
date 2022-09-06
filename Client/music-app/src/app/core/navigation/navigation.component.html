@@ -3,15 +3,14 @@
     <img src="/assets/headphones.png" />
     <a routerLink="/">Home</a>
     <ul>
-      <!--All user-->
       <li><a routerLink="/catalog">Catalog</a></li>
       <li><a href="/search">Search</a></li>
-      <!--Only guest-->
+
       <ng-container *ngIf="!(isLoggedIn$ | async)">
         <li class="guest"><a routerLink="/user/login">Login</a></li>
         <li class="guest"><a routerLink="/user/register">Register</a></li>
       </ng-container>
-      <!--Only user-->
+
       <ng-container *ngIf="isLoggedIn$ | async">
         <li class="user"><a routerLink="/create">Create Album</a></li>
         <li class="user logout">
