@@ -14,7 +14,9 @@
       <!--Only user-->
       <ng-container *ngIf="isLoggedIn$ | async">
         <li class="user"><a routerLink="/create">Create Album</a></li>
-        <li class="user logout"><a href="javascript:void(0)">Logout</a></li>
+        <li class="user logout">
+          <a href="javascript:void(0)" (click)="logoutHandler()">Logout</a>
+        </li>
       </ng-container>
     </ul>
   </nav>

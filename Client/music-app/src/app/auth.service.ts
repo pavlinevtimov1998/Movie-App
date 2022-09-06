@@ -35,6 +35,12 @@ export class AuthService {
     );
   }
 
+  logout$() {
+    return this.http.get('http://localhost:3000/users/logout', {
+      withCredentials: true,
+    });
+  }
+
   getProfile(): Observable<{ status: string; user: IUser }> {
     return this.http.get<{ status: string; user: IUser }>(
       'http://localhost:3000/users/profile',

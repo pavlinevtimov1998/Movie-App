@@ -13,4 +13,10 @@ export class NavigationComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {}
+
+  logoutHandler() {
+    this.authService.logout$().subscribe(() => {
+      this.authService.hendleLogout();
+    });
+  }
 }
