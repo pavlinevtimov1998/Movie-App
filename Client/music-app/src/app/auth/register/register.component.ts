@@ -57,9 +57,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
       password: passwords.password,
     };
 
-    this.subscription = this.authService.register$(body).subscribe((user) => {
-      this.authService.currentUser = user;
-      
+    this.subscription = this.authService.register$(body).subscribe((data) => {
+      this.authService.currentUser = data.user;
+
       this.router.navigate(['/albums/catalog']);
     });
   }
