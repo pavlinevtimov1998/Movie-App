@@ -70,14 +70,6 @@ const AlbumSchema = new Schema<IAlbum>(
       type: Number,
       required: [true, "Price is required!"],
     },
-    ratingsAverage: {
-      type: Number,
-      default: 4.5,
-    },
-    ratingsQuantity: {
-      type: Number,
-      default: 0,
-    },
     _ownerId: {
       type: Types.ObjectId,
       ref: "User",
