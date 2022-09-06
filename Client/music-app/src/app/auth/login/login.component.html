@@ -1,27 +1,49 @@
 <section id="loginPage">
-  <form>
+  <form [formGroup]="loginForm" (ngSubmit)="loginHandler()">
     <fieldset>
       <legend>Login</legend>
 
-      <label for="email" class="vhide">Email</label>
+      <label for="username" class="vhide">Username</label>
       <input
-        id="email"
-        class="email"
-        name="email"
+        formControlName="username"
+        id="username"
+        class="username"
+        name="username"
         type="text"
-        placeholder="Email"
+        placeholder="Username"
       />
+      <p
+        class="error"
+        *ngIf="
+          loginForm.controls['username'].invalid &&
+          loginForm.controls['username'].touched
+        "
+      >
+        Username is invalid!
+      </p>
 
       <label for="password" class="vhide">Password</label>
       <input
+        formControlName="password"
         id="password"
         class="password"
         name="password"
         type="password"
         placeholder="Password"
       />
+      <p
+        class="error"
+        *ngIf="
+          loginForm.controls['password'].invalid &&
+          loginForm.controls['password'].touched
+        "
+      >
+        Password is invalid!
+      </p>
 
-      <button type="submit" class="login">Login</button>
+      <button [disabled]="loginForm.invalid" type="submit" class="login">
+        Login
+      </button>
 
       <p class="field">
         <span>If you don't have profile click <a href="#">here</a></span>
