@@ -7,11 +7,15 @@
       <li><a routerLink="/catalog">Catalog</a></li>
       <li><a href="/search">Search</a></li>
       <!--Only guest-->
-      <li class="guest"><a routerLink="/user/login">Login</a></li>
-      <li class="guest"><a routerLink="/user/register">Register</a></li>
+      <ng-container *ngIf="!(isLoggedIn$ | async)">
+        <li class="guest"><a routerLink="/user/login">Login</a></li>
+        <li class="guest"><a routerLink="/user/register">Register</a></li>
+      </ng-container>
       <!--Only user-->
-      <li class="user"><a routerLink="/create">Create Album</a></li>
-      <li class="user logout"><a href="javascript:void(0)">Logout</a></li>
+      <ng-container *ngIf="isLoggedIn$ | async">
+        <li class="user"><a routerLink="/create">Create Album</a></li>
+        <li class="user logout"><a href="javascript:void(0)">Logout</a></li>
+      </ng-container>
     </ul>
   </nav>
 </header>

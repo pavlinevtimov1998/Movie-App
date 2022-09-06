@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { passwordMatching } from 'src/app/util/validators';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-register',
@@ -58,7 +58,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     };
 
     this.subscription = this.authService.register$(body).subscribe((data) => {
-      this.authService.currentUser = data.user;
+      this.authService.handleLogin(data.user);
 
       this.router.navigate(['/albums/catalog']);
     });

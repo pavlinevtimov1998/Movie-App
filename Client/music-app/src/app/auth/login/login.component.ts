@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     };
 
     this.authService.login$(body).subscribe((data) => {
-      this.authService.currentUser = data.user;
+      this.authService.handleLogin(data.user);
       this.router.navigate(['/albums/catalog']);
     });
   }
