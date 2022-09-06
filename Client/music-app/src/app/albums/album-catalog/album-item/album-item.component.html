@@ -10,7 +10,7 @@
       <p class="likes">Likes: {{ album.likes }}</p>
     </div>
     <div class="btn-group">
-      <a routerLink="/catalog" id="details">Details</a>
+      <a [routerLink]="['/details', album._id]" id="details">Details</a>
     </div>
   </div>
 </div>
