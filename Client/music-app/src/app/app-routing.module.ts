@@ -12,6 +12,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./albums/albums.module').then((m) => m.AlbumsModule),
   },
+  {
+    path: 'user',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  },
 ];
 
 export const appRoutingModule = RouterModule.forRoot(routes);
