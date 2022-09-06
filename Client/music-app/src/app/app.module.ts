@@ -10,7 +10,7 @@ import { CoreModule } from './core/core.module';
 import { CatalogComponent } from './album-catalog/catalog/catalog.component';
 import { AlbumItemComponent } from './album-catalog/album-item/album-item.component';
 import { AlbumService } from './album-catalog/album.service';
-import { DetailsComponent } from './details/details.component';
+import { DetailsComponent } from './album-catalog/details/details.component';
 
 @NgModule({
   declarations: [AppComponent, CatalogComponent, AlbumItemComponent, DetailsComponent],
