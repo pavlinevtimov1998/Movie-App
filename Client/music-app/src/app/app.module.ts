@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,7 +22,17 @@ import { AuthService } from './auth.service';
     AlbumsModule,
     AuthModule,
   ],
-  providers: [AuthService],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory(authService: AuthService) {
+        return () => authService.authenticate();
+      },
+      deps: [AuthService],
+      multi: true,
+    },
+    AuthService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

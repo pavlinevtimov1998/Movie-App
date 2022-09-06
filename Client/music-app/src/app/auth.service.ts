@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, map } from 'rxjs';
+import { Observable, BehaviorSubject, map, tap, catchError, EMPTY } from 'rxjs';
 
 import { IUser } from './core/interfaces.ts/User-interface';
 
@@ -35,11 +35,31 @@ export class AuthService {
     );
   }
 
+  getProfile(): Observable<{ status: string; user: IUser }> {
+    return this.http.get<{ status: string; user: IUser }>(
+      'http://localhost:3000/users/profile',
+      { withCredentials: true }
+    );
+  }
+
   handleLogin(user: IUser) {
     this._currentUser.next(user);
   }
 
   hendleLogout() {
     this._currentUser.next(this.guest);
+  }
+
+  authenticate(): Observable<{ status: string; user: IUser }> {
+    return this.getProfile().pipe(
+      tap((data) => {
+        this.handleLogin(data.user);
+      }),
+      catchError((err) => {
+        console.log(err);
+
+        return EMPTY;
+      })
+    );
   }
 }
