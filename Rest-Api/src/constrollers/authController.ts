@@ -26,7 +26,11 @@ router.post(
       process.env.JWT_SECRET as string
     );
 
-    res.cookie(process.env.COOKIE_NAME as string, token, { httpOnly: true });
+    console.log(token);
+
+    res.cookie(process.env.COOKIE_NAME as string, token, {
+      httpOnly: true,
+    });
 
     res.status(201).json({
       status: "Success",
