@@ -9,8 +9,18 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  register$(userData: IUser): Observable<IUser> {
-    return this.http.post<IUser>(
+  login$(userData: IUser): Observable<{ status: string; user: IUser }> {
+    return this.http.post<{ status: string; user: IUser }>(
+      'http://localhost:3000/users/login',
+      userData,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  register$(userData: IUser): Observable<{ status: string; user: IUser }> {
+    return this.http.post<{ status: string; user: IUser }>(
       'http://localhost:3000/users/register',
       userData,
       { withCredentials: true }
