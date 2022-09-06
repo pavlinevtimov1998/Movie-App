@@ -8,6 +8,7 @@ import { appRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { AlbumsModule } from './albums/albums.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +19,7 @@ import { AlbumsModule } from './albums/albums.module';
     HttpClientModule,
     BrowserAnimationsModule,
     AlbumsModule,
+    AuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
