@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+
 import { passwordMatching } from 'src/app/util/validators';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   passwordControll = new FormControl(null, [
     Validators.required,
     Validators.minLength(5),
@@ -34,9 +38,34 @@ export class RegisterComponent implements OnInit {
     }),
   });
 
-  constructor(private formBuilder: FormBuilder) {}
+  subscription!: Subscription;
+
+  constructor(
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
-  registerHandler() {}
+  registerHandler() {
+    const { username, email, passwords } = this.registerForm.value;
+
+    const body = {
+      username,
+      email,
+      password: passwords.password,
+    };
+
+    this.subscription = this.authService.register$(body).subscribe((user) => {
+      this.authService.currentUser = user;
+      console.log(user);
+      
+      this.router.navigate(['/albums/catalog']);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 }
