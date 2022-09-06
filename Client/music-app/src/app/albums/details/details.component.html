@@ -1,0 +1,23 @@
+<section id="detailsPage">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <div class="wrapper" *ngIf="!isLoading">
+    <div class="albumCover">
+      <img [src]="album.imageUrl" />
+    </div>
+    <div class="albumInfo">
+      <div class="albumText">
+        <h1>Name: {{ album.name }}</h1>
+        <h3>Artist: {{ album.artist }}</h3>
+        <h4>Genre: {{ album.genre }}</h4>
+        <h4>Price: {{ album.price }}</h4>
+        <h4>Date: {{ album.releaseDate }}</h4>
+        <p>{{ album.description }}</p>
+        <p>Likes: {{ album.likes }}</p>
+      </div>
+      <div class="actionBtn">
+        <a href="" class="edit">Edit</a>
+        <a href="javascript:void(0)" class="remove">Delete</a>
+      </div>
+    </div>
+  </div>
+</section>

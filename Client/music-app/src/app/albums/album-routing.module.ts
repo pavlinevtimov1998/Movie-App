@@ -9,7 +9,7 @@ const routes: Routes = [
     component: CatalogComponent,
   },
   {
-    path: 'catalog/:albumId',
+    path: 'details/:albumId',
     component: DetailsComponent,
   },
 ];
