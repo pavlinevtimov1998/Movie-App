@@ -69,6 +69,24 @@ router.post(
 );
 
 router.get(
+  "/logout",
+  authMiddleware,
+  catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
+    const user = req.user;
+
+    if (!user) {
+      return next(new AppError("Can't find user!", 404));
+    }
+
+    res.clearCookie(process.env.COOKIE_NAME as string);
+
+    res.status(200).json({
+      status: "Success",
+    });
+  })
+);
+
+router.get(
   "/profile",
   authMiddleware,
   catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
