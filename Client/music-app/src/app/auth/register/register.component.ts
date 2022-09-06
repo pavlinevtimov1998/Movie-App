@@ -59,7 +59,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     this.subscription = this.authService.register$(body).subscribe((user) => {
       this.authService.currentUser = user;
-      console.log(user);
       
       this.router.navigate(['/albums/catalog']);
     });

@@ -1,4 +1,4 @@
-import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 
 export const passwordMatching = (password: AbstractControl) => {
   return (rePass: AbstractControl) => {
