@@ -17,6 +17,7 @@ export const authMiddleware = catchAsyncError(
     const token: string = req.cookies[process.env.COOKIE_NAME as string] || "";
 
     if (!token) {
+      res.clearCookie(process.env.COOKIE_NAME as string);
       return next(new AppError("Token expired! Please log in!", 401));
     }
 
@@ -29,6 +30,9 @@ export const authMiddleware = catchAsyncError(
       req.user = await User.findById({ _id: decodedToken.id }).select(
         "-__v -updatedAt"
       );
+    } else {
+      res.clearCookie(process.env.COOKIE_NAME as string);
+      return next(new AppError("Token expired! Please log in!", 401));
     }
 
     next();
