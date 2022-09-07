@@ -11,7 +11,7 @@ const AlbumSchema = new Schema<IAlbum>(
       minLength: [5, "Album name should be at least 5 characters!"],
       validate: {
         validator: function (value: string) {
-          return /[A-Za-z]/g.test(value);
+          return /[A-Za-z]+/g.test(value);
         },
         message: () => "Album name should contains only letters!",
       },
@@ -32,7 +32,7 @@ const AlbumSchema = new Schema<IAlbum>(
       required: [true, "Release date is required!"],
       validate: {
         validator: function (value: string) {
-          return /[A-Za-z0-9]+/g.test(value);
+          return /[A-Za-z0-9\.\/\\]+/g.test(value);
         },
         message: () => "Invalid date!",
       },

@@ -16,13 +16,33 @@ import { AlbumService } from '../album.service';
 })
 export class CreateComponent implements OnInit {
   createAlbumForm: FormGroup = this.formBuilder.group({
-    name: new FormControl(null, [Validators.required]),
-    imageUrl: new FormControl(null, [Validators.required]),
+    name: new FormControl(null, [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.pattern('[A-Za-z ]+'),
+    ]),
+    imageUrl: new FormControl(null, [
+      Validators.required,
+      Validators.pattern('((https://|http://).+(.jpg|.png))'),
+    ]),
     price: new FormControl(null, [Validators.required]),
-    releaseDate: new FormControl(null, [Validators.required]),
-    artist: new FormControl(null, [Validators.required]),
-    genre: new FormControl(null, [Validators.required]),
-    description: new FormControl(null, [Validators.required]),
+    releaseDate: new FormControl(null, [
+      Validators.required,
+      Validators.pattern('[A-Za-z0-9./ ]+'),
+    ]),
+    artist: new FormControl(null, [
+      Validators.required,
+      Validators.pattern('[A-Za-z ]+'),
+      Validators.minLength(5),
+    ]),
+    genre: new FormControl(null, [
+      Validators.required,
+      Validators.pattern('[A-Za-z ]+'),
+    ]),
+    description: new FormControl(null, [
+      Validators.required,
+      Validators.minLength(10),
+    ]),
   });
 
   constructor(

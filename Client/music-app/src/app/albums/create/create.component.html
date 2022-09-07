@@ -14,6 +14,24 @@
           placeholder="Album name"
         />
 
+        <ng-container
+          *ngIf="
+            createAlbumForm.controls['name'].touched &&
+            createAlbumForm.controls['name'].errors?.['required']
+          "
+        >
+          <p class="error">Album name is required!</p>
+        </ng-container>
+        <ng-container
+          *ngIf="
+            createAlbumForm.controls['name'].touched &&
+            createAlbumForm.controls['name'].errors?.['pattern'] &&  
+            !createAlbumForm.controls['name'].errors?.['required']
+          "
+        >
+          <p class="error">Album should contains only letters!</p>
+        </ng-container>
+
         <label for="imageUrl" class="vhide">Image Url</label>
         <input
           formControlName="imageUrl"
@@ -23,6 +41,24 @@
           type="text"
           placeholder="Image Url"
         />
+
+        <ng-container
+          *ngIf="
+            createAlbumForm.controls['imageUrl'].touched &&
+            createAlbumForm.controls['imageUrl'].errors?.['required']
+          "
+        >
+          <p class="error">Album image URL is required!</p>
+        </ng-container>
+        <ng-container
+          *ngIf="
+            createAlbumForm.controls['imageUrl'].touched &&
+            createAlbumForm.controls['imageUrl'].errors?.['pattern'] &&  
+            !createAlbumForm.controls['imageUrl'].errors?.['required']
+          "
+        >
+          <p class="error">Invalid image URL!</p>
+        </ng-container>
 
         <label for="price" class="vhide">Price</label>
         <input
@@ -44,6 +80,26 @@
           placeholder="Release date"
         />
 
+        <ng-container
+          *ngIf="
+            createAlbumForm.controls['releaseDate'].touched &&
+            createAlbumForm.controls['releaseDate'].errors?.['required']
+          "
+        >
+          <p class="error">Album release date is required!</p>
+        </ng-container>
+        <ng-container
+          *ngIf="
+            createAlbumForm.controls['releaseDate'].touched &&
+            createAlbumForm.controls['releaseDate'].errors?.['pattern'] &&  
+            !createAlbumForm.controls['releaseDate'].errors?.['required']
+          "
+        >
+          <p class="error">
+            Album release date should contains only letters and digits!
+          </p>
+        </ng-container>
+
         <label for="artist" class="vhide">Artist</label>
         <input
           formControlName="artist"
@@ -53,6 +109,24 @@
           type="text"
           placeholder="Artist"
         />
+
+        <ng-container
+          *ngIf="
+            createAlbumForm.controls['artist'].touched &&
+            createAlbumForm.controls['artist'].errors?.['required']
+          "
+        >
+          <p class="error">Album artist is required!</p>
+        </ng-container>
+        <ng-container
+          *ngIf="
+            createAlbumForm.controls['artist'].touched &&
+            createAlbumForm.controls['artist'].errors?.['pattern'] &&  
+            !createAlbumForm.controls['artist'].errors?.['required']
+          "
+        >
+          <p class="error">Album artist should contains only letters!</p>
+        </ng-container>
 
         <label for="genre" class="vhide">Genre</label>
         <input
@@ -64,6 +138,24 @@
           placeholder="Genre"
         />
 
+        <ng-container
+          *ngIf="
+            createAlbumForm.controls['genre'].touched &&
+            createAlbumForm.controls['genre'].errors?.['required']
+          "
+        >
+          <p class="error">Album genre is required!</p>
+        </ng-container>
+        <ng-container
+          *ngIf="
+            createAlbumForm.controls['genre'].touched &&
+            createAlbumForm.controls['genre'].errors?.['pattern'] &&  
+            !createAlbumForm.controls['genre'].errors?.['required']
+          "
+        >
+          <p class="error">Album genre should contains only letters!</p>
+        </ng-container>
+
         <label for="description" class="vhide">Description</label>
         <textarea
           formControlName="description"
@@ -72,7 +164,29 @@
           placeholder="Description"
         ></textarea>
 
-        <button class="add-album">Add New Album</button>
+        <ng-container
+          *ngIf="
+            createAlbumForm.controls['description'].touched &&
+            createAlbumForm.controls['description'].errors?.['required']
+          "
+        >
+          <p class="error">Album description is required!</p>
+        </ng-container>
+        <ng-container
+          *ngIf="
+            createAlbumForm.controls['description'].touched &&
+            createAlbumForm.controls['description'].errors?.['minLength'] &&  
+            !createAlbumForm.controls['description'].errors?.['required']
+          "
+        >
+          <p class="error">
+            Album description should be at least 10 characters!
+          </p>
+        </ng-container>
+
+        <button [disabled]="createAlbumForm.invalid" class="add-album">
+          Add New Album
+        </button>
       </div>
     </fieldset>
   </form>
