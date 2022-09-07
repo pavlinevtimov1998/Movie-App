@@ -6,9 +6,11 @@ import { DetailsComponent } from './details/details.component';
 import { albumRoutingModule } from './album-routing.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AlbumService } from './album.service';
+import { CreateComponent } from './create/create.component';
+import { EditComponent } from './edit/edit.component';
 
 @NgModule({
-  declarations: [CatalogComponent, AlbumItemComponent, DetailsComponent],
+  declarations: [CatalogComponent, AlbumItemComponent, DetailsComponent, CreateComponent, EditComponent],
   imports: [CommonModule, albumRoutingModule, MatProgressSpinnerModule],
   providers: [AlbumService],
   exports: [CatalogComponent, AlbumItemComponent, DetailsComponent],
