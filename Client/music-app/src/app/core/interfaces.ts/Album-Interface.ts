@@ -1,3 +1,5 @@
+import { ILike } from './Like-Interface';
+
 export interface IAlbum {
   _id?: string;
   name: string;
@@ -8,5 +10,5 @@ export interface IAlbum {
   genre: string;
   description: string;
   _ownerId?: string;
-  likes?: number;
+  likes?: ILike[];
 }

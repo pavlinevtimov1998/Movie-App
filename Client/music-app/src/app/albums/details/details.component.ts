@@ -14,8 +14,9 @@ import { AlbumService } from '../album.service';
 })
 export class DetailsComponent implements OnInit, OnDestroy {
   album!: IAlbum;
-  subscription$!: Subscription;
+  subscription$ = new Subscription();
   isLoading = false;
+  canLike!: any;
 
   isLoggedIn$ = this.authService.isLoggedIn$;
   currentUser!: IUser;
@@ -30,38 +31,64 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.subscription$ = combineLatest([
-      this.activatedRoute.params,
-      this.authService.currentUser$,
-    ])
-      .pipe(
-        mergeMap(([params, currentUser]) => {
-          const albumId = params['albumId'];
-          this.currentUser = currentUser;
-          return this.albumService.getOne(albumId);
+    this.subscription$.add(
+      combineLatest([this.activatedRoute.params, this.authService.currentUser$])
+        .pipe(
+          mergeMap(([params, currentUser]) => {
+            const albumId = params['albumId'];
+            this.currentUser = currentUser;
+            return this.albumService.getOne(albumId);
+          })
+        )
+        .subscribe((albumData) => {
+          this.isOwner = albumData.album._ownerId == this.currentUser._id;
+          this.canLike = albumData.album.likes?.find(
+            (a) => a._ownerId == this.currentUser._id
+          );
+          this.album = albumData.album;
+
+          this.isLoading = false;
         })
-      )
-      .subscribe((albumData) => {
-        this.isOwner = albumData.album._ownerId == this.currentUser._id;
-        this.album = albumData.album;
-        this.isLoading = false;
-      });
+    );
   }
 
-  deleteAlbum() {
-    this.subscription$ = this.activatedRoute.params
-      .pipe(
-        mergeMap((params) => {
-          const albumId = params['albumId'];
-          return this.albumService.deleteAlbum(albumId);
+  deleteHandler() {
+    this.isLoading = true;
+    this.subscription$.add(
+      this.activatedRoute.params
+        .pipe(
+          mergeMap((params) => {
+            const albumId = params['albumId'];
+            return this.albumService.deleteAlbum(albumId);
+          })
+        )
+        .subscribe(() => {
+          this.router.navigate(['/catalog']);
         })
-      )
-      .subscribe(() => {
-        this.router.navigate(['/catalog']);
-      });
+    );
   }
 
-  likeAlbum() {}
+  likeHandler() {
+    this.isLoading = true;
+    this.subscription$.add(
+      this.activatedRoute.params
+        .pipe(
+          mergeMap((params) => {
+            const albumId = params['albumId'];
+            return this.albumService.likeAlbum({ albumId });
+          })
+        )
+
+        .subscribe(() => {
+          this.album.likes?.push({
+            _ownerId: this.currentUser._id,
+            albumId: this.album._id,
+          });
+          this.canLike = !this.canLike;
+          this.isLoading = false;
+        })
+    );
+  }
 
   ngOnDestroy(): void {
     this.subscription$.unsubscribe();

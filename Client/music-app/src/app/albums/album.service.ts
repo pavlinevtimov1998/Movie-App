@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IAlbum } from '../core/interfaces.ts/Album-Interface';
+import { ILike } from '../core/interfaces.ts/Like-Interface';
 
 @Injectable()
 export class AlbumService {
@@ -27,12 +28,20 @@ export class AlbumService {
     );
   }
 
-  likeAlbum() {
-    
+  likeAlbum(body: {
+    albumId: string;
+  }): Observable<{ status: string; message: string }> {
+    return this.http.post<{ status: string; message: string }>(
+      'http://localhost:3000/likes',
+      body,
+      {
+        withCredentials: true,
+      }
+    );
   }
 
   deleteAlbum(albumId: string) {
-    return this.http.delete('http://localhost:3000/data/albums' + albumId, {
+    return this.http.delete('http://localhost:3000/data/albums/' + albumId, {
       withCredentials: true,
     });
   }

@@ -12,17 +12,19 @@
         <h4>Price: {{ album.price }}$</h4>
         <h4>Date: {{ album.releaseDate }}</h4>
         <p>{{ album.description }}</p>
-        <p>Likes: {{ album.likes }}</p>
+        <p>Likes: {{ album.likes?.length }}</p>
       </div>
       <ng-container *ngIf="(isLoggedIn$ | async) && isOwner">
         <div class="actionBtn">
           <a [routerLink]="['/albums/edit', album._id]" class="edit">Edit</a>
-          <a href="javascript:void(0)" class="remove">Delete</a>
+          <a href="javascript:void(0)" (click)="deleteHandler()" class="remove"
+            >Delete</a
+          >
         </div>
       </ng-container>
-      <ng-container *ngIf="(isLoggedIn$ | async) && !isOwner">
+      <ng-container *ngIf="(isLoggedIn$ | async) && !isOwner && !canLike">
         <div class="actionBtn">
-          <a href="javascript:void(0)" class="edit">Like</a>
+          <a href="javascript:void(0)" (click)="likeHandler()" class="edit">Like</a>
         </div>
       </ng-container>
     </div>
