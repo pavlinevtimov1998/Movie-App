@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 
 import router from "./routes";
 import { initializeDatabaze } from "./config/dbConfig";
-import { cors } from "./middlewares/cors";
+import cors from "cors";
 
 dotenv.config({ path: __dirname + "/config.env" });
 
@@ -16,7 +16,16 @@ const databaseUrl = process.env.DB_URL?.replace(
 
 const app = express();
 
-app.use(cors);
+app.use(
+  cors({
+    credentials: true,
+    preflightContinue: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"],
+    origin: true,
+    allowedHeaders: ["Content-Type", "Accept", "Origin", "X-Requested-With"],
+    optionsSuccessStatus: 200,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 
