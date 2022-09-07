@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { mergeMap, Subscription, combineLatest } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { mergeMap, Subscription, combineLatest, mergeAll } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
 
 import { IAlbum } from 'src/app/core/interfaces.ts/Album-Interface';
@@ -16,15 +16,16 @@ export class DetailsComponent implements OnInit, OnDestroy {
   album!: IAlbum;
   subscription$!: Subscription;
   isLoading = false;
-  isLoggedIn$ = this.authService.isLoggedIn$;
 
+  isLoggedIn$ = this.authService.isLoggedIn$;
   currentUser!: IUser;
   isOwner!: boolean;
 
   constructor(
     private albumService: AlbumService,
     private activatedRoute: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +47,21 @@ export class DetailsComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       });
   }
+
+  deleteAlbum() {
+    this.subscription$ = this.activatedRoute.params
+      .pipe(
+        mergeMap((params) => {
+          const albumId = params['albumId'];
+          return this.albumService.deleteAlbum(albumId);
+        })
+      )
+      .subscribe(() => {
+        this.router.navigate(['/catalog']);
+      });
+  }
+
+  likeAlbum() {}
 
   ngOnDestroy(): void {
     this.subscription$.unsubscribe();

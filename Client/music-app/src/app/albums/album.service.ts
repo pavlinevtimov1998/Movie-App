@@ -26,4 +26,14 @@ export class AlbumService {
       }
     );
   }
+
+  likeAlbum() {
+    
+  }
+
+  deleteAlbum(albumId: string) {
+    return this.http.delete('http://localhost:3000/data/albums' + albumId, {
+      withCredentials: true,
+    });
+  }
 }
