@@ -32,7 +32,7 @@ router.post(
 
     res.status(201).json({
       status: "Success",
-      user,
+      user: { username: user.username, email: user.email, _id: user._id },
     });
   })
 );
@@ -63,7 +63,7 @@ router.post(
 
     res.status(200).json({
       status: "Success",
-      user: { username: user.username, email: user.email },
+      user: { username: user.username, email: user.email, _id: user._id },
     });
   })
 );
@@ -98,7 +98,7 @@ router.get(
 
     res.status(200).json({
       status: "Success",
-      user,
+      user: { username: user.username, email: user.email, _id: user._id },
     });
   })
 );
