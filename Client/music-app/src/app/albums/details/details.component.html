@@ -9,20 +9,20 @@
         <h1>Name: {{ album.name }}</h1>
         <h3>Artist: {{ album.artist }}</h3>
         <h4>Genre: {{ album.genre }}</h4>
-        <h4>Price: {{ album.price }}</h4>
+        <h4>Price: {{ album.price }}$</h4>
         <h4>Date: {{ album.releaseDate }}</h4>
         <p>{{ album.description }}</p>
         <p>Likes: {{ album.likes }}</p>
       </div>
       <ng-container *ngIf="(isLoggedIn$ | async) && isOwner">
         <div class="actionBtn">
-          <a href="" class="edit">Edit</a>
+          <a [routerLink]="['/albums/edit', album._id]" class="edit">Edit</a>
           <a href="javascript:void(0)" class="remove">Delete</a>
         </div>
       </ng-container>
       <ng-container *ngIf="(isLoggedIn$ | async) && !isOwner">
         <div class="actionBtn">
-          <a href="" class="edit">Like</a>
+          <a href="javascript:void(0)" class="edit">Like</a>
         </div>
       </ng-container>
     </div>
