@@ -1,5 +1,10 @@
-<section id="catalogPage" *ngIf="!isLoading">
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+
+<section id="catalogPage" *ngIf="!isLoading && albums.length > 0">
   <h1>All Albums</h1>
   <app-album-item *ngFor="let album of albums" [album]="album"></app-album-item>
 </section>
-<mat-spinner *ngIf="isLoading"></mat-spinner>
+
+<section id="catalogPage" *ngIf="!isLoading && albums.length == 0">
+  <h1>No albums in catalog!</h1>
+</section>
