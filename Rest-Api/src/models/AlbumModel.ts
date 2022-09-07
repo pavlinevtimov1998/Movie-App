@@ -82,7 +82,6 @@ AlbumSchema.virtual("likes", {
   ref: "Like",
   foreignField: "albumId",
   localField: "_id",
-  count: true,
 });
 
 export const Album = model("Album", AlbumSchema);

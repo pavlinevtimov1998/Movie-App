@@ -1,6 +1,5 @@
 import { Router, Request, Response, NextFunction } from "express";
 
-import likeController from "./likeController";
 import { authMiddleware } from "../middlewares/authMiddleware";
 import { Album } from "../models/AlbumModel";
 import { IAlbum } from "../models/interfaces";
@@ -10,8 +9,6 @@ import { Like } from "../models/LikeModel";
 import { AppError } from "../utils/appError";
 
 const router = Router();
-
-router.use("/likes", authMiddleware, likeController);
 
 router.post(
   "/albums",

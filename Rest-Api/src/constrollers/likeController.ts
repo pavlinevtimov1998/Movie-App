@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express";
+import { authMiddleware } from "../middlewares/authMiddleware";
 import { Album } from "../models/AlbumModel";
 import { Like } from "../models/LikeModel";
 import { AppError } from "../utils/appError";
@@ -7,9 +8,10 @@ import { catchAsyncError } from "../utils/catchAsyncErr";
 const router = Router();
 
 router.post(
-  "/:albumId",
+  "/",
+  authMiddleware,
   catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
-    const albumId = req.params.albumId;
+    const albumId = req.body.albumId;
 
     const [album, like] = await Promise.all([
       Album.findById(albumId),
@@ -33,7 +35,7 @@ router.post(
 );
 
 router.delete(
-  "/:albumId/revoke",
+  "/revoke",
   catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     const albumId = req.params.albumId;
 
