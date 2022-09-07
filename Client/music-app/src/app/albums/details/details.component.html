@@ -14,10 +14,17 @@
         <p>{{ album.description }}</p>
         <p>Likes: {{ album.likes }}</p>
       </div>
-      <div class="actionBtn">
-        <a href="" class="edit">Edit</a>
-        <a href="javascript:void(0)" class="remove">Delete</a>
-      </div>
+      <ng-container *ngIf="(isLoggedIn$ | async) && isOwner">
+        <div class="actionBtn">
+          <a href="" class="edit">Edit</a>
+          <a href="javascript:void(0)" class="remove">Delete</a>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="(isLoggedIn$ | async) && !isOwner">
+        <div class="actionBtn">
+          <a href="" class="edit">Like</a>
+        </div>
+      </ng-container>
     </div>
   </div>
 </section>
