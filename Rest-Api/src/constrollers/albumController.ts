@@ -25,7 +25,7 @@ router.post(
 
     const createdAlbum = await Album.create(albumData);
 
-    res.status(201).json(createdAlbum);
+    res.status(201).json({ status: "Successfull!", album: createdAlbum });
   })
 );
 
@@ -55,7 +55,7 @@ router.get(
       .populate("likes")
       .select("-__v -updatedAt");
 
-    res.status(200).json(album);
+    res.status(200).json({ status: "Successfull!", album });
   })
 );
 
