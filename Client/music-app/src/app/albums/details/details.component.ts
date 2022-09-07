@@ -30,7 +30,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe((albumData) => {
-        this.album = albumData;
+        this.album = albumData.album;
         this.isLoading = false;
       });
   }

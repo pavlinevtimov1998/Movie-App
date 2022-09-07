@@ -8,10 +8,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AlbumService } from './album.service';
 import { CreateComponent } from './create/create.component';
 import { EditComponent } from './edit/edit.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [CatalogComponent, AlbumItemComponent, DetailsComponent, CreateComponent, EditComponent],
-  imports: [CommonModule, albumRoutingModule, MatProgressSpinnerModule],
+  imports: [CommonModule, albumRoutingModule, MatProgressSpinnerModule, ReactiveFormsModule],
   providers: [AlbumService],
   exports: [CatalogComponent, AlbumItemComponent, DetailsComponent],
 })

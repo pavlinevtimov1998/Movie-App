@@ -11,9 +11,19 @@ export class AlbumService {
     return this.http.get<IAlbum[]>('http://localhost:3000/data/albums');
   }
 
-  getOne(albumId: string): Observable<IAlbum> {
-    return this.http.get<IAlbum>(
+  getOne(albumId: string): Observable<{ status: string; album: IAlbum }> {
+    return this.http.get<{ status: string; album: IAlbum }>(
       'http://localhost:3000/data/albums/' + albumId
+    );
+  }
+
+  createAlbum(body: IAlbum): Observable<{ status: string; album: IAlbum }> {
+    return this.http.post<{ status: string; album: IAlbum }>(
+      'http://localhost:3000/data/albums',
+      body,
+      {
+        withCredentials: true,
+      }
     );
   }
 }
