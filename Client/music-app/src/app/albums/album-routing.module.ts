@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CatalogComponent } from './album-catalog/catalog/catalog.component';
+import { CreateComponent } from './create/create.component';
 import { DetailsComponent } from './details/details.component';
 
 const routes: Routes = [
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: 'details/:albumId',
     component: DetailsComponent,
+  },
+  {
+    path: 'create',
+    component: CreateComponent,
   },
 ];
 
