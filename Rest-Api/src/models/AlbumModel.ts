@@ -21,7 +21,7 @@ const AlbumSchema = new Schema<IAlbum>(
       required: true,
       validate: {
         validator: function (value: string) {
-          return /((https:\/\/|http:\/\/).+(\.jpg))/g.test(value);
+          return /((https:\/\/|http:\/\/).+(\.jpg|\.png))/g.test(value);
         },
         message: () => "Album image should be valid URL!",
       },
