@@ -12,16 +12,16 @@
           type="text"
           placeholder="Username"
         />
+        <mat-error
+          *ngIf="
+            loginForm.controls['username'].invalid &&
+            loginForm.controls['username'].touched
+          "
+          >Username is invalid!</mat-error
+        >
       </mat-form-field>
-      <p
-        class="error"
-        *ngIf="
-          loginForm.controls['username'].invalid &&
-          loginForm.controls['username'].touched
-        "
-      >
-        Username is invalid!
-      </p>
+
+      <!-- <mat-form-field hintLabel="Should be at least 6 characters!"> -->
       <mat-form-field>
         <input
           matInput
@@ -32,23 +32,25 @@
           type="password"
           placeholder="Password"
         />
+        <mat-error
+          class="error"
+          *ngIf="
+            loginForm.controls['password'].invalid &&
+            loginForm.controls['password'].touched
+          "
+          >Password is invalid!</mat-error
+        >
       </mat-form-field>
-      <p
-        class="error"
-        *ngIf="
-          loginForm.controls['password'].invalid &&
-          loginForm.controls['password'].touched
-        "
-      >
-        Password is invalid!
-      </p>
 
       <button mat-raised-button color="primary" type="submit">
         <mat-icon>login</mat-icon> Login
       </button>
 
       <p class="field">
-        <span>If you don't have profile click <a routerLink="/user/register">here</a></span>
+        <span
+          >If you don't have profile click
+          <a routerLink="/user/register">here</a></span
+        >
       </p>
     </fieldset>
   </form>

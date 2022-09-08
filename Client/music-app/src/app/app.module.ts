@@ -34,7 +34,7 @@ import { AuthGuard } from './auth/auth-guard.guard';
       multi: true,
     },
     AuthService,
-    AuthGuard
+    AuthGuard,
   ],
   bootstrap: [AppComponent],
 })

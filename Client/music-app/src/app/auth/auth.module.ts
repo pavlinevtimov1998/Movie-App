@@ -13,7 +13,7 @@ import { MaterialModule } from '../material.module';
     CommonModule,
     authRoutingModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
   ],
   providers: [],
   exports: [RegisterComponent, LoginComponent],
