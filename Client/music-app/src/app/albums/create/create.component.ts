@@ -19,7 +19,7 @@ export class CreateComponent implements OnInit {
     name: new FormControl(null, [
       Validators.required,
       Validators.minLength(5),
-      Validators.pattern('[A-Za-z ]+'),
+      Validators.pattern(/[A-Za-z ]+/),
     ]),
     imageUrl: new FormControl(null, [
       Validators.required,
@@ -28,16 +28,16 @@ export class CreateComponent implements OnInit {
     price: new FormControl(null, [Validators.required]),
     releaseDate: new FormControl(null, [
       Validators.required,
-      Validators.pattern('[A-Za-z0-9./ ]+'),
+      Validators.pattern(/[0-9\.\/]+/),
     ]),
     artist: new FormControl(null, [
       Validators.required,
-      Validators.pattern('[A-Za-z ]+'),
+      Validators.pattern(/[A-Za-z ]+/),
       Validators.minLength(5),
     ]),
     genre: new FormControl(null, [
       Validators.required,
-      Validators.pattern('[A-Za-z ]+'),
+      Validators.pattern(/[A-Za-z ]+/),
     ]),
     description: new FormControl(null, [
       Validators.required,
