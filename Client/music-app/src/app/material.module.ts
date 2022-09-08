@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [],
@@ -20,6 +21,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatInputModule,
     FlexLayoutModule,
     MatNativeDateModule,
+    MatCheckboxModule,
   ],
   exports: [
     MatProgressSpinnerModule,
@@ -29,6 +31,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatInputModule,
     MatNativeDateModule,
     MatDatepickerModule,
+    MatCheckboxModule,
   ],
 })
 export class MaterialModule {}
