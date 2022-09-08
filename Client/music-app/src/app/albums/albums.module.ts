@@ -9,10 +9,22 @@ import { AlbumService } from './album.service';
 import { CreateComponent } from './create/create.component';
 import { EditComponent } from './edit/edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '../material.module';
 
 @NgModule({
-  declarations: [CatalogComponent, AlbumItemComponent, DetailsComponent, CreateComponent, EditComponent],
-  imports: [CommonModule, albumRoutingModule, MatProgressSpinnerModule, ReactiveFormsModule],
+  declarations: [
+    CatalogComponent,
+    AlbumItemComponent,
+    DetailsComponent,
+    CreateComponent,
+    EditComponent,
+  ],
+  imports: [
+    CommonModule,
+    albumRoutingModule,
+    ReactiveFormsModule,
+    MaterialModule,
+  ],
   providers: [AlbumService],
   exports: [CatalogComponent, AlbumItemComponent, DetailsComponent],
 })

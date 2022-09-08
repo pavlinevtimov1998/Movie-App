@@ -16,7 +16,7 @@ import { AuthService } from '../../auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
-export class RegisterComponent implements OnInit, OnDestroy {
+export class RegisterComponent implements OnInit {
   passwordControll = new FormControl(null, [
     Validators.required,
     Validators.minLength(5),
@@ -38,8 +38,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
     }),
   });
 
-  subscription!: Subscription;
-
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
@@ -57,14 +55,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
       password: passwords.password,
     };
 
-    this.subscription = this.authService.register$(body).subscribe((data) => {
+    this.authService.register$(body).subscribe((data) => {
       this.authService.handleLogin(data.user);
 
       this.router.navigate(['/albums/catalog']);
     });
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }

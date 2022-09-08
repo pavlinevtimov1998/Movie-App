@@ -2,7 +2,6 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { appRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,12 +9,15 @@ import { CoreModule } from './core/core.module';
 import { AlbumsModule } from './albums/albums.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth.service';
+import { MaterialModule } from './material.module';
+import { AuthGuard } from './auth/auth-guard.guard';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     appRoutingModule,
+    MaterialModule,
     CoreModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -32,6 +34,7 @@ import { AuthService } from './auth.service';
       multi: true,
     },
     AuthService,
+    AuthGuard
   ],
   bootstrap: [AppComponent],
 })

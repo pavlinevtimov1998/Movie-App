@@ -1,17 +1,18 @@
 <section id="loginPage">
   <form [formGroup]="loginForm" (ngSubmit)="loginHandler()">
-    <fieldset>
+    <fieldset fxLayout="column" fxLayoutAlign="center center">
       <legend>Login</legend>
-
-      <label for="username" class="vhide">Username</label>
-      <input
-        formControlName="username"
-        id="username"
-        class="username"
-        name="username"
-        type="text"
-        placeholder="Username"
-      />
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="username"
+          id="username"
+          class="username"
+          name="username"
+          type="text"
+          placeholder="Username"
+        />
+      </mat-form-field>
       <p
         class="error"
         *ngIf="
@@ -21,16 +22,17 @@
       >
         Username is invalid!
       </p>
-
-      <label for="password" class="vhide">Password</label>
-      <input
-        formControlName="password"
-        id="password"
-        class="password"
-        name="password"
-        type="password"
-        placeholder="Password"
-      />
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="password"
+          id="password"
+          class="password"
+          name="password"
+          type="password"
+          placeholder="Password"
+        />
+      </mat-form-field>
       <p
         class="error"
         *ngIf="
@@ -41,12 +43,12 @@
         Password is invalid!
       </p>
 
-      <button [disabled]="loginForm.invalid" type="submit" class="login">
-        Login
+      <button mat-raised-button color="primary" type="submit">
+        <mat-icon>login</mat-icon> Login
       </button>
 
       <p class="field">
-        <span>If you don't have profile click <a href="#">here</a></span>
+        <span>If you don't have profile click <a routerLink="/user/register">here</a></span>
       </p>
     </fieldset>
   </form>
