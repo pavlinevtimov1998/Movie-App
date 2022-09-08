@@ -70,15 +70,20 @@
           placeholder="Price"
         />
 
-        <label for="releaseDate" class="vhide">Release date</label>
-        <input
-          formControlName="releaseDate"
-          id="releaseDate"
-          name="releaseDate"
-          class="releaseDate"
-          type="text"
-          placeholder="Release date"
-        />
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="releaseDate"
+            type="text"
+            placeholder="Release date"
+            [matDatepicker]="datePicker"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="datePicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #datePicker></mat-datepicker>
+        </mat-form-field>
 
         <ng-container
           *ngIf="
