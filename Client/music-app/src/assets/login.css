@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:100,300,400,700);
-fieldset {
+/* fieldset {
   margin: 1em auto;
   padding: 2em;
   width: 25em;
@@ -102,4 +102,4 @@ input[type=text]:focus, input[type=password]:focus {
 
 p{
     padding-top: 20px;
-}
+} */
