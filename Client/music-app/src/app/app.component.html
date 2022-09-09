@@ -1,5 +1,11 @@
-<div id="box">
-  <app-navigation></app-navigation>
-  <router-outlet></router-outlet>
+<mat-sidenav-container>
+  <mat-sidenav #sideNav role="navigation">
+    <app-nav-list (handleClose)="sideNav.close()"></app-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <app-navigation [sideNav]="sideNav"></app-navigation>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
   <app-footer></app-footer>
-</div>
+</mat-sidenav-container>

@@ -1,0 +1,26 @@
+<mat-nav-list>
+  <ng-container>
+    <a mat-list-item routerLink="/users/register" (click)="onClose()">
+      <mat-icon>face</mat-icon>
+      <span class="nav-caption">Signup</span>
+    </a>
+    <a mat-list-item routerLink="/users/login" (click)="onClose()">
+      <mat-icon>login</mat-icon>
+      <span class="nav-caption">Login</span>
+    </a>
+  </ng-container>
+  <a mat-list-item routerLink="/home" (click)="onClose()">
+    <mat-icon>home</mat-icon>
+    <span class="nav-caption">Home</span>
+  </a>
+  <ng-container>
+    <a mat-list-item href="javascript:void(0)" (click)="onClose()">
+      <mat-icon>album</mat-icon>
+      <span class="nav-caption">Create Album</span>
+    </a>
+    <a mat-list-item href="javascript:void(0)" (click)="onClose()">
+      <mat-icon>logout</mat-icon>
+      <span class="nav-caption">Logout</span>
+    </a>
+  </ng-container>
+</mat-nav-list>

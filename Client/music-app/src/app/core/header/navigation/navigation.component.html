@@ -1,0 +1,33 @@
+<mat-toolbar color="primary">
+  <img src="/assets/headphones.png" />
+  <div fxHide.lt-md>
+    <ul fxLayout>
+      <li><a routerLink="/">Home</a></li>
+      <li><a routerLink="/catalog">Catalog</a></li>
+      <li><a href="javascript:void(0)">Search</a></li>
+    </ul>
+  </div>
+  <div fxFlex></div>
+  <div fxHide.lt-md>
+    <ul fxLayout fxLayoutAlign="center center">
+      <ng-container *ngIf="!(isLoggedIn$ | async)">
+        <li class="guest"><a routerLink="/user/login">Login</a></li>
+        <li class="guest"><a routerLink="/user/register">Register</a></li>
+      </ng-container>
+
+      <ng-container *ngIf="isLoggedIn$ | async">
+        <li class="user"><a routerLink="/create">Create Album</a></li>
+        <li class="user logout">
+          <a href="javascript:void(0)" (click)="logoutHandler()" mat-button
+            >Logout</a
+          >
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+  <div fxHide.gt-sm>
+    <button mat-icon-button (click)="sideNav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
