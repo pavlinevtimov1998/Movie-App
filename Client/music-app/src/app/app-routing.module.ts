@@ -14,7 +14,7 @@ const routes: Routes = [
       import('./albums/albums.module').then((m) => m.AlbumsModule),
   },
   {
-    path: 'user',
+    path: 'users',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
