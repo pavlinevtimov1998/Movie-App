@@ -1,4 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { MatListItem } from '@angular/material/list';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'app-nav-list',
@@ -6,14 +8,19 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./nav-list.component.css'],
 })
 export class NavListComponent implements OnInit {
-
   @Output() handleClose = new EventEmitter<void>();
+  isLoggedIn$ = this.authService.isLoggedIn$;
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {}
 
-  onClose() {    
+  onClose(logout?: MatListItem) {
+    if (logout) {
+      this.authService.logout$().subscribe((response) => {
+        this.authService.handleLogout();
+      });
+    }
     this.handleClose.emit();
   }
 }
