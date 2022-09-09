@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AuthService } from '../../../auth.service';
-import { IUser } from '../../interfaces.ts/User-interface';
 
 @Component({
   selector: 'app-navigation',
