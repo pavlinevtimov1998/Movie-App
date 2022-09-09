@@ -1,7 +1,11 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
-<section id="catalogPage" *ngIf="!isLoading && albums.length > 0">
-  <h1>All Albums</h1>
+<section
+  fxLayoutAlign="flex-start"
+  fxLayoutGap="20px"
+  id="catalogPage"
+  *ngIf="!isLoading && albums.length > 0"
+>
   <app-album-item *ngFor="let album of albums" [album]="album"></app-album-item>
 </section>
 
