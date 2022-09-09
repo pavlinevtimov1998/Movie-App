@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { MatListItem } from '@angular/material/list';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
 
 @Component({
@@ -11,13 +12,14 @@ export class NavListComponent implements OnInit {
   @Output() handleClose = new EventEmitter<void>();
   isLoggedIn$ = this.authService.isLoggedIn$;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
 
   onClose(logout?: MatListItem) {
     if (logout) {
       this.authService.logout$().subscribe((response) => {
+        this.router.navigate(['/albums/catalog']);
         this.authService.handleLogout();
       });
     }
