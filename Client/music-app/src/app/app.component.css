@@ -6,4 +6,6 @@ mat-sidenav {
   width: 200px;
 }
 
-
+.mat-drawer-content {
+  position: unset;
+}
