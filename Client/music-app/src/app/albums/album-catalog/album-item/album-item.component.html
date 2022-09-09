@@ -15,7 +15,7 @@
   </div>
 </div> -->
 
-<mat-card class="example-card" fxFlex="350px">
+<mat-card class="example-card" fxFlex="300px">
   <mat-card-header [routerLink]="['/details', album._id]">
     <mat-card-title>{{ album.name }}</mat-card-title>
     <mat-card-subtitle>Artist: {{ album.artist }}</mat-card-subtitle>
@@ -26,8 +26,21 @@
     <p>Price: {{ album.price }}$</p>
     <p>Release Date: {{ album.releaseDate }}</p>
   </mat-card-content>
-  <mat-card-actions>
-    <button color="primary" mat-raised-button>LIKE</button>
-    <button color="primary" mat-raised-button>SHARE</button>
+  <mat-card-actions fxLayout>
+    <div>
+      <button
+        *ngIf="(isLoggedIn$ | async) && !isOwner"
+        color="warn"
+        mat-icon-button
+        (click)="likeHandler(album._id || '')"
+      >
+        <mat-icon>{{ isLiked ? "favorite" : "favorite_border" }}</mat-icon>
+      </button>
+      <span>{{ album.likes?.length }} likes</span>
+    </div>
+    <div fxFlex></div>
+    <button color="primary" mat-icon-button>
+      <mat-icon>share</mat-icon>
+    </button>
   </mat-card-actions>
 </mat-card>

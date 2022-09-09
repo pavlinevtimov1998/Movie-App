@@ -11,4 +11,5 @@ export interface IAlbum {
   description: string;
   _ownerId?: string;
   likes?: ILike[];
+  isOwner?: boolean;
 }
