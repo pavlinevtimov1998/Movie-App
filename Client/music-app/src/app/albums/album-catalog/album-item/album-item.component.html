@@ -1,4 +1,4 @@
-<div class="card-box">
+<!-- <div class="card-box">
   <img [src]="album.imageUrl" />
   <div>
     <div class="text-center">
@@ -13,4 +13,21 @@
       <a [routerLink]="['/details', album._id]" id="details">Details</a>
     </div>
   </div>
-</div>
+</div> -->
+
+<mat-card class="example-card" fxFlex="350px">
+  <mat-card-header [routerLink]="['/details', album._id]">
+    <mat-card-title>{{ album.name }}</mat-card-title>
+    <mat-card-subtitle>Artist: {{ album.artist }}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image [src]="album.imageUrl" />
+  <mat-card-content>
+    <p>Genre: {{ album.genre }}</p>
+    <p>Price: {{ album.price }}$</p>
+    <p>Release Date: {{ album.releaseDate }}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button color="primary" mat-raised-button>LIKE</button>
+    <button color="primary" mat-raised-button>SHARE</button>
+  </mat-card-actions>
+</mat-card>
