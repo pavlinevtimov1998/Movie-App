@@ -1,47 +1,52 @@
 <section id="registerPage">
   <form [formGroup]="registerForm" (ngSubmit)="registerHandler()">
-    <fieldset>
+    <fieldset fxLayout="column" fxLayoutAlign="center center">
       <legend>Register</legend>
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="username"
+          id="username"
+          class="username"
+          name="username"
+          type="text"
+          placeholder="Username"
+        />
+        <mat-error
+          *ngIf="
+            registerForm.controls['username'].invalid &&
+            registerForm.controls['username'].touched
+          "
+        >
+          Username is invalid!</mat-error
+        >
+      </mat-form-field>
 
-      <label for="username" class="vhide">Username</label>
-      <input
-        formControlName="username"
-        id="username"
-        class="username"
-        name="username"
-        type="text"
-        placeholder="Username"
-      />
-      <p
-        class="error"
-        *ngIf="
-          registerForm.controls['username'].invalid &&
-          registerForm.controls['username'].touched
-        "
-      >
-        Username is invalid!
-      </p>
-      <label for="email" class="vhide">Email</label>
-      <input
-        formControlName="email"
-        id="email"
-        class="email"
-        name="email"
-        type="text"
-        placeholder="Email"
-      />
-      <p
-        class="error"
-        *ngIf="
-          registerForm.controls['email'].invalid &&
-          registerForm.controls['email'].touched
-        "
-      >
-        Email is invalid!
-      </p>
-      <div [formGroup]="passwords">
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="email"
+          id="email"
+          class="email"
+          name="email"
+          type="text"
+          placeholder="Email"
+        />
+        <mat-error
+          class="error"
+          *ngIf="
+            registerForm.controls['email'].invalid &&
+            registerForm.controls['email'].touched
+          "
+        >
+          Email is invalid!</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field [formGroup]="passwords">
         <label for="password" class="vhide">Password</label>
         <input
+          matInput
           formControlName="password"
           id="password"
           class="password"
@@ -49,17 +54,20 @@
           type="password"
           placeholder="Password"
         />
-        <p
-          class="error"
+        <mat-error
           *ngIf="
             passwords.controls['password'].invalid &&
             passwords.controls['password'].touched
           "
         >
-          Password is invalid!
-        </p>
-        <label for="conf-pass" class="vhide">Confirm Password:</label>
+          Password is invalid!</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field
+      [formGroup]="passwords"
+      >
         <input
+          matInput
           id="conf-pass"
           formControlName="rePass"
           class="conf-pass"
@@ -67,24 +75,29 @@
           type="password"
           placeholder="Confirm Password"
         />
-        <p
-          class="error"
+        <mat-error
           *ngIf="
-            passwords.controls['rePass'].invalid &&
-            passwords.controls['rePass'].touched || passwords.controls['rePass']?.errors?.['notMatching']
-          "
+          passwords.controls['rePass'].invalid &&
+          passwords.controls['rePass'].touched || passwords.controls['rePass']?.errors?.['notMatching']
+        "
         >
-          Password is invalid!
-        </p>
-      </div>
+          Password is invalid!</mat-error
+        >
+      </mat-form-field>
+
       <mat-checkbox color="primary"
         >Agree with Terms and Conditions.</mat-checkbox
       >
 
-      <button type="submit" class="register">Register</button>
+      <button mat-raised-button color="primary" type="submit" class="register">
+        <mat-icon>login</mat-icon> Register
+      </button>
 
       <p class="field">
-        <span>If you already have profile click <a href="#">here</a></span>
+        <span
+          >If you already have profile click
+          <a routerLink="/users/login">here</a></span
+        >
       </p>
     </fieldset>
   </form>

@@ -47,6 +47,10 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {}
 
   registerHandler() {
+    if (this.registerForm.invalid) {
+      return;
+    }
+
     const { username, email, passwords } = this.registerForm.value;
 
     const body = {
