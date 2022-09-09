@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:100,300,400,700);
-fieldset {
+/* fieldset {
   margin: 1em auto;
   padding: 2em;
   width: 25em;
@@ -7,9 +7,9 @@ fieldset {
   border-color: #2d333b;
   background: #1b1f24;
   box-shadow: 0 2px 2px #131518;
-}
+} */
 
-fieldset legend {
+/* fieldset legend {
   font-weight: 700;
   font-size: 2em;
   text-transform: uppercase;
@@ -30,7 +30,7 @@ fieldset legend {
   display: block;
   width: 100%;
   margin: 0 auto;
-}
+} */
 
 input,
 input + label > i,

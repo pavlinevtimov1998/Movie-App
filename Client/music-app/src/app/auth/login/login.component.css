@@ -6,23 +6,34 @@ mat-form-field {
   width: 300px;
 }
 
-legend {
+button {
+  margin-top: 5px;
+}
+
+input[type="text"] {
+  margin: 0;
+  padding: 0;
+}
+
+fieldset legend {
   font-weight: 700;
   font-size: 2em;
+  text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  text-align: center;
-  background: #171a1e;
-  -o-border-image: linear-gradient(
+  padding: 0.5em;
+  color: white;
+  background-color: rgb(63, 81, 181);
+  /* -o-border-image: linear-gradient(
       180deg,
       rgba(255, 255, 255, 0) 50%,
       #2d333b 50%
     )
     1 round;
   border-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 50%, #2d333b 50%)
-    1 round;
-  border-width: 1px;
-  border-style: solid;
+    1 round; */
+  /* border-width: 1px; */
+  /* border-style: solid; */
   display: block;
   width: 100%;
   margin: 0 auto;
@@ -33,13 +44,11 @@ legend {
 }
 
 fieldset {
-  margin: 1em auto;
+  margin: 5em auto;
   padding: 2em;
   width: 25em;
   border-radius: 2px;
-  border-color: #2d333b;
-  background: #1b1f24;
-  box-shadow: 0 2px 2px #131518;
+  border-color: rgb(63, 81, 181);
 }
 /* 
 

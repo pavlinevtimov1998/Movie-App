@@ -28,6 +28,10 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   loginHandler() {
+    if (this.loginForm.invalid) {
+      return;
+    }
+
     const { username, password } = this.loginForm.value;
 
     const body = {

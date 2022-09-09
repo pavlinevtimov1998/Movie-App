@@ -1,10 +1,4 @@
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
-/* @import "./assets/typography.css"; */
-@import "./assets/home.css";
-/* @import "./assets/login.css"; */
-@import "./assets/create.css";
-@import "./assets/catalog.css";
-@import "./assets/details.css";
 
 html,
 body {
