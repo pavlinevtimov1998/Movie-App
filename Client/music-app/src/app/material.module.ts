@@ -12,6 +12,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [],
@@ -24,10 +25,12 @@ import { MatListModule } from '@angular/material/list';
     MatInputModule,
     FlexLayoutModule,
     MatNativeDateModule,
+    MatDatepickerModule,
     MatCheckboxModule,
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,
+    MatCardModule,
   ],
   exports: [
     MatProgressSpinnerModule,
@@ -42,6 +45,7 @@ import { MatListModule } from '@angular/material/list';
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,
+    MatCardModule,
   ],
 })
 export class MaterialModule {}
