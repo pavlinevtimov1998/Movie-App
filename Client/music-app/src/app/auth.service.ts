@@ -52,7 +52,7 @@ export class AuthService {
     this._currentUser.next(user);
   }
 
-  hendleLogout() {
+  handleLogout() {
     this._currentUser.next(this.guest);
   }
 
