@@ -12,7 +12,6 @@ router.post(
   authMiddleware,
   catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     const movieId = req.body.movieId;
-    console.log(movieId);
 
     const [movie, like] = await Promise.all([
       Movie.findById(movieId),
@@ -36,7 +35,8 @@ router.post(
 );
 
 router.delete(
-  "/revoke",
+  "/revoke/:movieId",
+  authMiddleware,
   catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     const movieId = req.params.movieId;
 

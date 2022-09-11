@@ -37,21 +37,42 @@ export class MovieItemComponent implements OnInit, OnDestroy {
     );
   }
 
-  likeHandler(movieId: string) {
-    this.subscription.add(
-      combineLatest([
-        this.authService.currentUser$,
-        this.movieService.likeMovie({ movieId }),
-      ]).subscribe(([user, response]) => {
-        this.isLiked = true;
-        if (user._id) {
-          this.movie.likes?.push({
-            _ownerId: user._id,
-            movieId: this.movie._id,
-          });
-        }
-      })
-    );
+  likeHandler(movieId: string, isLiked: boolean) {
+    if (!isLiked) {
+      this.subscription.add(
+        combineLatest([
+          this.authService.currentUser$,
+          this.movieService.likeMovie({ movieId }),
+        ]).subscribe(([user, response]) => {
+          this.isLiked = true;
+          if (user._id) {
+            this.movie.likes?.push({
+              _ownerId: user._id,
+              movieId: this.movie._id,
+            });
+          }
+        })
+      );
+    } else {
+      this.subscription.add(
+        combineLatest([
+          this.authService.currentUser$,
+          this.movieService.revokeLike(movieId),
+        ]).subscribe(([user, _]) => {
+          this.isLiked = false;
+          if (user._id) {
+            this.movie.likes = this.movie.likes?.filter(
+              (like) => like._ownerId !== user._id
+            );
+
+            // .push({
+            //   _ownerId: user._id,
+            //   movieId: this.movie._id,
+            // });
+          }
+        })
+      );
+    }
   }
 
   ngOnDestroy() {

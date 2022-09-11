@@ -39,6 +39,12 @@ export class MovieService {
     );
   }
 
+  revokeLike(movieId: string) {
+    return this.http.delete('http://localhost:3000/likes/revoke/' + movieId, {
+      withCredentials: true,
+    });
+  }
+
   deleteMovie(movieId: string) {
     return this.http.delete('http://localhost:3000/data/movies/' + movieId, {
       withCredentials: true,

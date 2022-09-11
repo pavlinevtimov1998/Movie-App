@@ -8,16 +8,15 @@
     <p>Genre: {{ movie.genre }}</p>
   </mat-card-content>
   <mat-card-actions fxLayout>
-    <div>
+    <div *ngIf="(isLoggedIn$ | async) && !isOwner">
       <button
-        *ngIf="(isLoggedIn$ | async) && !isOwner"
         color="warn"
         mat-icon-button
-        (click)="likeHandler(movie._id || '')"
+        (click)="likeHandler(movie._id || '', isLiked)"
       >
         <mat-icon>{{ isLiked ? "favorite" : "favorite_border" }}</mat-icon>
+        <span>{{ movie.likes?.length }} likes</span>
       </button>
-      <span>{{ movie.likes?.length }} likes</span>
     </div>
     <div fxFlex></div>
     <button color="primary" mat-icon-button>
