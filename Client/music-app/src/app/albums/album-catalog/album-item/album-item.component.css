@@ -2,6 +2,14 @@ mat-card-header :hover {
   cursor: pointer;
 }
 
+mat-card {
+margin: 20px;
+}
+
 .like {
   color: white;
 }
+
+/* image {
+  width: 100%;
+} */

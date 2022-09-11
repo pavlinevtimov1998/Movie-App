@@ -34,7 +34,6 @@ export class AlbumItemComponent implements OnInit, OnDestroy {
           (like) => like._ownerId == user._id
         );
 
-        console.log(this.isLiked);
       })
     );
   }
