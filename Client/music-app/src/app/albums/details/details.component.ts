@@ -16,7 +16,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   album!: IAlbum;
   subscription$ = new Subscription();
   isLoading = false;
-  canLike!: any;
+  canLike!: boolean;
 
   isLoggedIn$ = this.authService.isLoggedIn$;
   currentUser!: IUser;
@@ -42,8 +42,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
         )
         .subscribe((albumData) => {
           this.isOwner = albumData.album._ownerId == this.currentUser._id;
-          this.canLike = albumData.album.likes?.find(
-            (a) => a._ownerId == this.currentUser._id
+          this.canLike = !!albumData.album.likes?.find(
+            (like) => like._ownerId == this.currentUser._id
           );
           this.album = albumData.album;
 
@@ -68,26 +68,29 @@ export class DetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  likeHandler() {
-    this.isLoading = true;
-    this.subscription$.add(
-      this.activatedRoute.params
-        .pipe(
-          mergeMap((params) => {
-            const albumId = params['albumId'];
-            return this.albumService.likeAlbum({ albumId });
-          })
-        )
+  likeHandler(isLiked: boolean) {
+    if (!isLiked) {
+      this.isLoading = true;
+      this.subscription$.add(
+        this.activatedRoute.params
+          .pipe(
+            mergeMap((params) => {
+              const albumId = params['albumId'];
+              return this.albumService.likeAlbum({ albumId });
+            })
+          )
 
-        .subscribe(() => {
-          this.album.likes?.push({
-            _ownerId: this.currentUser._id,
-            albumId: this.album._id,
-          });
-          this.canLike = !this.canLike;
-          this.isLoading = false;
-        })
-    );
+          .subscribe(() => {
+            this.album.likes?.push({
+              _ownerId: this.currentUser._id,
+              albumId: this.album._id,
+            });
+            this.canLike = !this.canLike;
+            this.isLoading = false;
+          })
+      );
+    } else {
+    }
   }
 
   ngOnDestroy(): void {

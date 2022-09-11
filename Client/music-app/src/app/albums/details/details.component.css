@@ -8,3 +8,26 @@ mat-spinner {
   bottom: 0;
   right: 0;
 }
+
+mat-card {
+  margin: 50px 200px;
+}
+
+.content {
+  display: flex;
+  gap: 25px;
+  padding: 20px;
+}
+
+mat-card-actions {
+  padding: 20px 0;
+}
+
+.modify {
+  margin-right: 50px;
+}
+
+
+.interaction {
+  margin-left: 20px;
+}
