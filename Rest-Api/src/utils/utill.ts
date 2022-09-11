@@ -1,7 +1,7 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { Document, Query, Types } from "mongoose";
 
-import { IAlbum, IUser } from "../models/interfaces";
+import { IMovie, IUser } from "../models/interfaces";
 import { AppError } from "./appError";
 
 export const jwtPromise = (id: string, secret: string) => {
@@ -32,16 +32,16 @@ export const jwtVerify = (
 export class Sorting {
   constructor(
     public query: Query<
-      (Document<unknown, any, IAlbum> &
-        IAlbum & {
+      (Document<unknown, any, IMovie> &
+        IMovie & {
           _id: Types.ObjectId;
         })[],
-      Document<unknown, any, IAlbum> &
-        IAlbum & {
+      Document<unknown, any, IMovie> &
+        IMovie & {
           _id: Types.ObjectId;
         },
       {},
-      IAlbum
+      IMovie
     >,
     public queryParams: { [key: string]: string }
   ) {}

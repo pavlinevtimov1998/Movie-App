@@ -6,9 +6,9 @@ const LikeSchema = new Schema<ILike>({
     type: Types.ObjectId,
     ref: "User",
   },
-  albumId: {
+  movieId: {
     type: Types.ObjectId,
-    ref: "Album",
+    ref: "Movie",
   },
 });
 

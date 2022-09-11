@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
 
-import albumController from "./constrollers/albumController";
+import movieController from "./constrollers/MoovieController";
 import authController from "./constrollers/authController";
 
 import { globalErrorHandler } from "./middlewares/globallErrorHandler";
@@ -12,7 +12,7 @@ const router = Router();
 
 router.use("/users", authController);
 
-router.use("/data", albumController);
+router.use("/data", movieController);
 
 router.use("/likes", likeController);
 

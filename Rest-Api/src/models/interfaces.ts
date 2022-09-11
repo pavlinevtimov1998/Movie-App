@@ -12,7 +12,7 @@ export interface IUser {
   password: string;
 }
 
-export interface IAlbum {
+export interface IMovie {
   _id?: string;
   name: string;
   imageUrl: string;
@@ -40,7 +40,7 @@ export interface ILike {
     type: Types.ObjectId;
     ref: string;
   };
-  albumId: {
+  movieId: {
     type: Types.ObjectId;
     ref: string;
   };

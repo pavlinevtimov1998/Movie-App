@@ -1,0 +1,99 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { mergeMap, Subscription, combineLatest, mergeAll } from 'rxjs';
+import { AuthService } from 'src/app/auth.service';
+
+import { IMovie } from 'src/app/core/interfaces.ts/Movie-Interface';
+import { IUser } from 'src/app/core/interfaces.ts/User-interface';
+import { MovieService } from '../movie.service';
+
+@Component({
+  selector: 'app-details',
+  templateUrl: './details.component.html',
+  styleUrls: ['./details.component.css'],
+})
+export class DetailsComponent implements OnInit, OnDestroy {
+  movie!: IMovie;
+  subscription$ = new Subscription();
+  isLoading = false;
+  canLike!: boolean;
+
+  isLoggedIn$ = this.authService.isLoggedIn$;
+  currentUser!: IUser;
+  isOwner!: boolean;
+
+  constructor(
+    private MovieService: MovieService,
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.isLoading = true;
+    this.subscription$.add(
+      combineLatest([this.activatedRoute.params, this.authService.currentUser$])
+        .pipe(
+          mergeMap(([params, currentUser]) => {
+            const MovieId = params['MovieId'];
+            this.currentUser = currentUser;
+            return this.MovieService.getOne(MovieId);
+          })
+        )
+        .subscribe((MovieData) => {
+          this.isOwner = MovieData.movie._ownerId == this.currentUser._id;
+          this.canLike = !!MovieData.movie.likes?.find(
+            (like) => like._ownerId == this.currentUser._id
+          );
+          this.movie = MovieData.movie;
+
+          this.isLoading = false;
+        })
+    );
+  }
+
+  deleteHandler() {
+    this.isLoading = true;
+    this.subscription$.add(
+      this.activatedRoute.params
+        .pipe(
+          mergeMap((params) => {
+            const movieId = params['movieId'];
+            return this.MovieService.deleteMovie(movieId);
+          })
+        )
+        .subscribe(() => {
+          this.router.navigate(['/catalog']);
+        })
+    );
+  }
+
+  likeHandler(isLiked: boolean) {
+    if (!isLiked) {
+      this.isLoading = true;
+      this.subscription$.add(
+        this.activatedRoute.params
+          .pipe(
+            mergeMap((params) => {
+              const movieId = params['MovieId'];
+              return this.MovieService.likeMovie({ movieId });
+            })
+          )
+
+          .subscribe(() => {
+            this.movie.likes?.push({
+              _ownerId: this.currentUser._id,
+              movieId: this.movie._id,
+            });
+            this.canLike = !this.canLike;
+            this.isLoading = false;
+          })
+      );
+    } else {
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
+  }
+}

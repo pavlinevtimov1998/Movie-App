@@ -1,0 +1,14 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+
+<section
+  fxLayoutAlign="flex-start"
+  fxLayout.sm="center center"
+  id="catalogPage"
+  *ngIf="!isLoading && movies.length > 0"
+>
+  <app-movie-item *ngFor="let movie of movies" [movie]="movie"></app-movie-item>
+</section>
+
+<section id="catalogPage" *ngIf="!isLoading && movies.length == 0">
+  <h1>No movies in catalog!</h1>
+</section>
