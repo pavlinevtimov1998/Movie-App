@@ -15,7 +15,7 @@ export const catchAsyncError = (fn: Function) => {
         const message = handleValidationaError(err);
 
         return next(new AppError(message, 400));
-      } else if (err.message == "invalid token") {
+      } else if (err.message == "Token expired!") {
         res.clearCookie(process.env.COOKIE_NAME as string);
         return next(new AppError("Invalid token! Please log in again!", 401));
       } else {
