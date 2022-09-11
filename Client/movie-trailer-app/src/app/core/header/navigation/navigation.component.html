@@ -1,9 +1,11 @@
 <mat-toolbar color="primary">
-  <img src="/assets/headphones.png" />
+  <img
+    src="/assets/kisspng-photographic-film-movie-camera-cinema-website-and-mobile-application-development-service-5d3fc9250ede49.9926975015644613490609.png"
+  />
   <div fxHide.lt-md>
     <ul fxLayout>
       <li><a routerLink="/">Home</a></li>
-      <li><a routerLink="/catalog">Catalog</a></li>
+      <li><a routerLink="/movies/catalog">Catalog</a></li>
       <li><a href="javascript:void(0)">Search</a></li>
     </ul>
   </div>
@@ -16,7 +18,7 @@
       </ng-container>
 
       <ng-container *ngIf="isLoggedIn$ | async">
-        <li class="user"><a routerLink="/albums/create">Create Album</a></li>
+        <li class="user"><a routerLink="/movies/create">Create movie</a></li>
         <li class="user">
           <a href="javascript:void(0)" (click)="logoutHandler()" mat-button
             >Logout</a

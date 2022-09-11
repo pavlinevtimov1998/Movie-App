@@ -12,6 +12,7 @@ router.post(
   authMiddleware,
   catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     const movieId = req.body.movieId;
+    console.log(movieId);
 
     const [movie, like] = await Promise.all([
       Movie.findById(movieId),
@@ -19,7 +20,7 @@ router.post(
     ]);
 
     if (movie && !like) {
-      if (movie._ownerId.toString() === req.user?._id.toString()) {
+      if (movie._ownerId === req.user?._id) {
         return next(new AppError("Can't like own created movie!", 400));
       } else {
         await Like.create({ _ownerId: req.user?._id, movieId: movie._id });

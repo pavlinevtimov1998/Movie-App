@@ -1,30 +1,11 @@
-<!-- <div class="card-box">
-  <img [src]="movie.imageUrl" />
-  <div>
-    <div class="text-center">
-      <p class="name">Name: {{ movie.name }}</p>
-      <p class="artist">Artist: {{ movie.artist }}</p>
-      <p class="genre">Genre: {{ movie.genre }}</p>
-      <p class="price">Price: {{ movie.price }}$</p>
-      <p class="date">Release Date: {{ movie.releaseDate }}</p>
-      <p class="likes">Likes: {{ movie.likes?.length }}</p>
-    </div>
-    <div class="btn-group">
-      <a [routerLink]="['/details', movie._id]" id="details">Details</a>
-    </div>
-  </div>
-</div> -->
-
 <mat-card class="example-card" fxFlex.xs="100%" fxFlex="350px">
   <mat-card-header [routerLink]="['/details', movie._id]">
     <mat-card-title>{{ movie.name }}</mat-card-title>
-    <mat-card-subtitle>Artist: {{ movie.artist }}</mat-card-subtitle>
+    <!-- <mat-card-subtitle>Artist: {{ movie.artist }}</mat-card-subtitle> -->
   </mat-card-header>
   <img mat-card-image [src]="movie.imageUrl" />
   <mat-card-content>
     <p>Genre: {{ movie.genre }}</p>
-    <p>Price: {{ movie.price }}$</p>
-    <p>Release Date: {{ movie.releaseDate }}</p>
   </mat-card-content>
   <mat-card-actions fxLayout>
     <div>

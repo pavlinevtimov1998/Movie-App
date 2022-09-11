@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { mergeMap, Subscription, combineLatest, mergeAll } from 'rxjs';
+import { mergeMap, Subscription, combineLatest } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
 
 import { IMovie } from 'src/app/core/interfaces.ts/Movie-Interface';
@@ -23,7 +23,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   isOwner!: boolean;
 
   constructor(
-    private MovieService: MovieService,
+    private movieService: MovieService,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     private router: Router
@@ -35,17 +35,17 @@ export class DetailsComponent implements OnInit, OnDestroy {
       combineLatest([this.activatedRoute.params, this.authService.currentUser$])
         .pipe(
           mergeMap(([params, currentUser]) => {
-            const MovieId = params['MovieId'];
+            const movieId = params['movieId'];
             this.currentUser = currentUser;
-            return this.MovieService.getOne(MovieId);
+            return this.movieService.getOne(movieId);
           })
         )
-        .subscribe((MovieData) => {
-          this.isOwner = MovieData.movie._ownerId == this.currentUser._id;
-          this.canLike = !!MovieData.movie.likes?.find(
+        .subscribe((movieData) => {
+          this.isOwner = movieData.movie._ownerId == this.currentUser._id;
+          this.canLike = !!movieData.movie.likes?.find(
             (like) => like._ownerId == this.currentUser._id
           );
-          this.movie = MovieData.movie;
+          this.movie = movieData.movie;
 
           this.isLoading = false;
         })
@@ -59,7 +59,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
         .pipe(
           mergeMap((params) => {
             const movieId = params['movieId'];
-            return this.MovieService.deleteMovie(movieId);
+            return this.movieService.deleteMovie(movieId);
           })
         )
         .subscribe(() => {
@@ -76,7 +76,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
           .pipe(
             mergeMap((params) => {
               const movieId = params['MovieId'];
-              return this.MovieService.likeMovie({ movieId });
+              return this.movieService.likeMovie({ movieId });
             })
           )
 

@@ -26,17 +26,6 @@ const movieSchema = new Schema<IMovie>(
         message: () => "Movie image should be valid URL!",
       },
     },
-    releaseDate: {
-      type: String,
-      trim: true,
-      required: [true, "Release date is required!"],
-      validate: {
-        validator: function (value: string) {
-          return /[A-Za-z0-9\.\/\\]+/g.test(value);
-        },
-        message: () => "Invalid date!",
-      },
-    },
     genre: {
       type: String,
       trim: true,

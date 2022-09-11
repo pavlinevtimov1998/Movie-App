@@ -1,49 +1,12 @@
-<!-- <section id="detailsPage">
-  <div class="wrapper" *ngIf="!isLoading">
-    <div class="movieCover">
-      <img [src]="movie.imageUrl" />
-    </div>
-    <div class="movieInfo">
-      <div class="movieText">
-        <h1>Name: {{ movie.name }}</h1>
-        <h3>Artist: {{ movie.artist }}</h3>
-        <h4>Genre: {{ movie.genre }}</h4>
-        <h4>Price: {{ movie.price }}$</h4>
-        <h4>Date: {{ movie.releaseDate }}</h4>
-        <p>{{ movie.description }}</p>
-        <p>Likes: {{ movie.likes?.length }}</p>
-      </div>
-      <ng-container *ngIf="(isLoggedIn$ | async) && isOwner">
-        <div class="actionBtn">
-          <a [routerLink]="['/movies/edit', movie._id]" class="edit">Edit</a>
-          <a href="javascript:void(0)" (click)="deleteHandler()" class="remove"
-            >Delete</a
-          >
-        </div>
-      </ng-container>
-      <ng-container *ngIf="(isLoggedIn$ | async) && !isOwner && !canLike">
-        <div class="actionBtn">
-          <a href="javascript:void(0)" (click)="likeHandler()" class="edit">Like</a>
-        </div>
-      </ng-container>
-    </div>
-  </div>
-</section> -->
-
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
 <mat-card *ngIf="!isLoading" class="example-card" fxFlex="100%">
   <div class="content">
     <div fxLayout="column">
       <mat-card-title-group>
-        <mat-card-title>{{ movie.name }}</mat-card-title>
-        <mat-card-subtitle
-          >Artist: {{ movie.artist }}</mat-card-subtitle
-        > </mat-card-title-group
+        <mat-card-title>{{ movie.name }}</mat-card-title> </mat-card-title-group
       ><mat-card-content>
         <p>Genre: {{ movie.genre }}</p>
-        <p>Price: {{ movie.price }}$</p>
-        <p>Release Date: {{ movie.releaseDate }}</p>
         <p>{{ movie.description }}</p>
       </mat-card-content>
     </div>
@@ -96,3 +59,7 @@
     </div>
   </mat-card-actions>
 </mat-card>
+
+<!-- <mat-card-subtitle
+          >Artist: {{ movie.artist }}</mat-card-subtitle
+        > -->

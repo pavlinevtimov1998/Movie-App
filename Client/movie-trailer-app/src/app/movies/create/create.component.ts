@@ -25,16 +25,6 @@ export class CreateComponent implements OnInit {
       Validators.required,
       Validators.pattern('((https://|http://).+(.jpg|.png))'),
     ]),
-    price: new FormControl(null, [Validators.required]),
-    releaseDate: new FormControl(null, [
-      Validators.required,
-      Validators.pattern(/[0-9\.\/]+/),
-    ]),
-    artist: new FormControl(null, [
-      Validators.required,
-      Validators.pattern(/[A-Za-z ]+/),
-      Validators.minLength(5),
-    ]),
     genre: new FormControl(null, [
       Validators.required,
       Validators.pattern(/[A-Za-z ]+/),
@@ -54,15 +44,12 @@ export class CreateComponent implements OnInit {
   ngOnInit(): void {}
 
   createmovieHandler() {
-    const { name, imageUrl, price, releaseDate, artist, genre, description } =
-      this.createmovieForm.value as IMovie;
+    const { name, imageUrl, genre, description } = this.createmovieForm
+      .value as IMovie;
 
     const body = {
       name,
       imageUrl,
-      price: +price,
-      releaseDate,
-      artist,
       genre,
       description,
     };
