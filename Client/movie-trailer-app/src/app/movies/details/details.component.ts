@@ -16,7 +16,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   movie!: IMovie;
   subscription$ = new Subscription();
   isLoading = false;
-  canLike!: boolean;
+  isLiked!: boolean;
 
   isLoggedIn$ = this.authService.isLoggedIn$;
   currentUser!: IUser;
@@ -42,7 +42,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
         )
         .subscribe((movieData) => {
           this.isOwner = movieData.movie._ownerId == this.currentUser._id;
-          this.canLike = !!movieData.movie.likes?.find(
+          this.isLiked = !!movieData.movie.likes?.find(
             (like) => like._ownerId == this.currentUser._id
           );
           this.movie = movieData.movie;
@@ -70,12 +70,11 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   likeHandler(isLiked: boolean) {
     if (!isLiked) {
-      this.isLoading = true;
       this.subscription$.add(
         this.activatedRoute.params
           .pipe(
             mergeMap((params) => {
-              const movieId = params['MovieId'];
+              const movieId = params['movieId'];
               return this.movieService.likeMovie({ movieId });
             })
           )
@@ -85,11 +84,26 @@ export class DetailsComponent implements OnInit, OnDestroy {
               _ownerId: this.currentUser._id,
               movieId: this.movie._id,
             });
-            this.canLike = !this.canLike;
-            this.isLoading = false;
+            this.isLiked = !this.isLiked;
           })
       );
     } else {
+      this.subscription$.add(
+        this.activatedRoute.params
+          .pipe(
+            mergeMap((params) => {
+              const movieId = params['movieId'];
+              return this.movieService.revokeLike(movieId);
+            })
+          )
+
+          .subscribe(() => {
+            this.movie.likes = this.movie.likes?.filter(
+              (like) => like._ownerId !== this.currentUser._id
+            );
+            this.isLiked = !this.isLiked;
+          })
+      );
     }
   }
 

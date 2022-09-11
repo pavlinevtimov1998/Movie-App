@@ -23,9 +23,9 @@
   </div>
   <mat-card-actions fxLayout fxLayoutAlign="center center">
     <div fxLayout="row" fxLayoutGap="50px" class="interaction">
-      <div *ngIf="(isLoggedIn$ | async) && !isOwner && canLike">
-        <button color="warn" mat-icon-button (click)="likeHandler(canLike)">
-          <mat-icon>{{ canLike ? "favorite" : "favorite_border" }}</mat-icon
+      <div *ngIf="(isLoggedIn$ | async) && !isOwner">
+        <button color="warn" mat-icon-button (click)="likeHandler(isLiked)">
+          <mat-icon>{{ isLiked ? "favorite" : "favorite_border" }}</mat-icon
           ><span>{{ movie.likes?.length }} Likes</span>
         </button>
       </div>
