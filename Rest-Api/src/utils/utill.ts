@@ -2,6 +2,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import { Document, Query, Types } from "mongoose";
 
 import { IAlbum, IUser } from "../models/interfaces";
+import { AppError } from "./appError";
 
 export const jwtPromise = (id: string, secret: string) => {
   return new Promise((resolve, reject) => {
@@ -21,7 +22,7 @@ export const jwtVerify = (
   return new Promise((resolve, reject) => {
     jwt.verify(token, secret, (err, payload) => {
       if (err) {
-        return reject(err);
+        return reject(new AppError("Token expired!", 401));
       }
       resolve(payload);
     });
