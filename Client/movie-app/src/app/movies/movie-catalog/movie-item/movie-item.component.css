@@ -1,15 +1,11 @@
-mat-card-header :hover {
-  cursor: pointer;
+.details-btn {
+  margin-bottom: 14px;
+}
+
+.details-btn span {
+  padding-left: 10px;
 }
 
 mat-card {
-margin: 20px;
+  margin: 20px;
 }
-
-.like {
-  color: white;
-}
-
-/* image {
-  width: 100%;
-} */

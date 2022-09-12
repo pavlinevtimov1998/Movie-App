@@ -1,7 +1,15 @@
 <mat-card class="example-card" fxFlex.xs="100%" fxFlex="350px">
-  <mat-card-header [routerLink]="['/details', movie._id]">
+  <mat-card-header fxLayoutAlign="center center">
     <mat-card-title>{{ movie.name }}</mat-card-title>
-    <!-- <mat-card-subtitle>Artist: {{ movie.artist }}</mat-card-subtitle> -->
+    <div fxFlex></div>
+    <button
+      class="details-btn"
+      mat-raised-button
+      color="primary"
+      [routerLink]="['/details', movie._id]"
+    >
+      <mat-icon>movie</mat-icon><span>Details</span>
+    </button>
   </mat-card-header>
   <img mat-card-image [src]="movie.imageUrl" />
   <mat-card-content>
@@ -15,6 +23,12 @@
         (click)="likeHandler(movie._id || '', isLiked)"
       >
         <mat-icon>{{ isLiked ? "favorite" : "favorite_border" }}</mat-icon>
+        <span>{{ movie.likes?.length }} likes</span>
+      </button>
+    </div>
+    <div *ngIf="!(isLoggedIn$ | async) || isOwner">
+      <button color="warn" mat-icon-button>
+        <mat-icon>favorite</mat-icon>
         <span>{{ movie.likes?.length }} likes</span>
       </button>
     </div>
