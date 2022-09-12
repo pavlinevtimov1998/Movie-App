@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
 
-import movieController from "./constrollers/MoovieController";
+import movieController from "./constrollers/MovieController";
 import authController from "./constrollers/authController";
 
 import { globalErrorHandler } from "./middlewares/globallErrorHandler";
