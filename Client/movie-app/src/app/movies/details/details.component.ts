@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { mergeMap, Subscription, combineLatest } from 'rxjs';
+import { mergeMap, Subscription, combineLatest, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 
 import { DeleteMoviePostComponent } from './dialog.component';
@@ -64,27 +64,26 @@ export class DetailsComponent implements OnInit, OnDestroy {
     const dialogRef = this.matDialog.open(DeleteMoviePostComponent);
 
     this.subscription$.add(
-      dialogRef.afterClosed().subscribe((isDelete) => {
-        if (isDelete) {
-          this.isLoading = true;
-
-          this.activatedRoute.params
-            .pipe(
-              mergeMap((params) => {
-                const movieId = params['movieId'];
-                return this.movieService.deleteMovie(movieId);
-              })
-            )
-            .subscribe({
-              next: () => {
-                this.router.navigate(['/catalog']);
-              },
-              error: (err) => {
-                console.log(err);
-              },
-            });
-        }
-      })
+      dialogRef
+        .afterClosed()
+        .pipe(
+          mergeMap((isYes) => {
+            if (isYes) {
+              return this.movieService.deleteMovie(this.movie._id as string);
+            }
+            return of(false);
+          })
+        )
+        .subscribe({
+          next: (response) => {
+            if (typeof response !== 'boolean') {
+              this.router.navigate(['/movies/catalog']);
+            }
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        })
     );
   }
 
