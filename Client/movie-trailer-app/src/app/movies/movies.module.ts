@@ -11,6 +11,7 @@ import { MovieService } from './movie.service';
 import { CreateComponent } from './create/create.component';
 import { EditComponent } from './edit/edit.component';
 import { MaterialModule } from '../material.module';
+import { DeleteMoviePostComponent } from './details/dialog.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { MaterialModule } from '../material.module';
     DetailsComponent,
     CreateComponent,
     EditComponent,
+    DeleteMoviePostComponent,
   ],
   imports: [
     CommonModule,
@@ -28,6 +30,5 @@ import { MaterialModule } from '../material.module';
     YouTubePlayerModule,
   ],
   providers: [MovieService],
-  exports: [CatalogComponent, MovieItemComponent, DetailsComponent],
 })
 export class MoviesModule {}

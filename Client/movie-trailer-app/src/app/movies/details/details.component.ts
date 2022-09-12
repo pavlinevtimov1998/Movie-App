@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { mergeMap, Subscription, combineLatest } from 'rxjs';
-import { AuthService } from 'src/app/auth.service';
+import { MatDialog } from '@angular/material/dialog';
 
+import { DeleteMoviePostComponent } from './dialog.component';
+import { AuthService } from 'src/app/auth.service';
 import { IMovie } from 'src/app/core/interfaces.ts/Movie-Interface';
 import { IUser } from 'src/app/core/interfaces.ts/User-interface';
 import { MovieService } from '../movie.service';
@@ -26,7 +28,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
     private movieService: MovieService,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private matDialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -58,23 +61,30 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   deleteHandler() {
-    this.isLoading = true;
+    const dialogRef = this.matDialog.open(DeleteMoviePostComponent);
+
     this.subscription$.add(
-      this.activatedRoute.params
-        .pipe(
-          mergeMap((params) => {
-            const movieId = params['movieId'];
-            return this.movieService.deleteMovie(movieId);
-          })
-        )
-        .subscribe({
-          next: () => {
-            this.router.navigate(['/catalog']);
-          },
-          error: (err) => {
-            console.log(err);
-          },
-        })
+      dialogRef.afterClosed().subscribe((isDelete) => {
+        if (isDelete) {
+          this.isLoading = true;
+
+          this.activatedRoute.params
+            .pipe(
+              mergeMap((params) => {
+                const movieId = params['movieId'];
+                return this.movieService.deleteMovie(movieId);
+              })
+            )
+            .subscribe({
+              next: () => {
+                this.router.navigate(['/catalog']);
+              },
+              error: (err) => {
+                console.log(err);
+              },
+            });
+        }
+      })
     );
   }
 
