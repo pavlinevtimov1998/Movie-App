@@ -1,7 +1,7 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
 <mat-card *ngIf="!isLoading" class="example-card" fxFlex="100%">
-  <div class="content">
+  <div class="content" fxLayoutAlign="center">
     <div fxLayout="column">
       <mat-card-title-group>
         <mat-card-title>{{ movie.name }}</mat-card-title> </mat-card-title-group
@@ -9,59 +9,57 @@
         <p>Genre: {{ movie.genre }}</p>
         <p>{{ movie.description }}</p>
       </mat-card-content>
+      <div fxFlex></div>
+      <mat-card-actions
+        fxLayout
+        fxLayoutAlign="flex-start center"
+        fxLayoutGap="80px"
+      >
+        <div fxLayout="row" fxLayoutGap="50px" class="interaction">
+          <div *ngIf="(isLoggedIn$ | async) && !isOwner">
+            <button color="warn" mat-icon-button (click)="likeHandler(isLiked)">
+              <mat-icon>{{ isLiked ? "favorite" : "favorite_border" }}</mat-icon
+              ><span>{{ movie.likes?.length }} Likes</span>
+            </button>
+          </div>
+          <div *ngIf="!(isLoggedIn$ | async) || isOwner">
+            <button color="warn" mat-icon-button>
+              <mat-icon>favorite</mat-icon
+              ><span>{{ movie.likes?.length }} Likes</span>
+            </button>
+          </div>
+
+          <div>
+            <button color="primary" mat-icon-button>
+              <mat-icon>share</mat-icon><span>Share</span>
+            </button>
+          </div>
+        </div>
+        <div fxLayout="row" fxLayoutGap="35px" class="modify" *ngIf="isOwner">
+          <div>
+            <button
+              [routerLink]="['/edit', movie._id]"
+              mat-icon-button
+              color="primary"
+            >
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+          </div>
+          <div>
+            <button mat-icon-button color="warn" (click)="deleteHandler()">
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
+            </button>
+          </div>
+        </div>
+      </mat-card-actions>
     </div>
     <div fxFlex></div>
     <div>
-      <youtube-player
-        videoId="uelHwf8o7_U"
-        suggestedQuality="highres"
-        [height]="300"
-        [width]="500"
-      >
-      </youtube-player>
+      <img mat-card-image [src]="movie.imageUrl" [alt]="movie.name" />
     </div>
   </div>
-  <mat-card-actions fxLayout fxLayoutAlign="center center">
-    <div fxLayout="row" fxLayoutGap="50px" class="interaction">
-      <div *ngIf="(isLoggedIn$ | async) && !isOwner">
-        <button color="warn" mat-icon-button (click)="likeHandler(isLiked)">
-          <mat-icon>{{ isLiked ? "favorite" : "favorite_border" }}</mat-icon
-          ><span>{{ movie.likes?.length }} Likes</span>
-        </button>
-      </div>
-      <div *ngIf="!(isLoggedIn$ | async) || isOwner">
-        <button color="warn" mat-icon-button>
-          <mat-icon>favorite</mat-icon
-          ><span>{{ movie.likes?.length }} Likes</span>
-        </button>
-      </div>
-
-      <div>
-        <button color="primary" mat-icon-button>
-          <mat-icon>share</mat-icon><span>Share</span>
-        </button>
-      </div>
-    </div>
-    <div fxFlex></div>
-    <div fxLayout="row" fxLayoutGap="30px" class="modify" *ngIf="isOwner">
-      <div>
-        <button
-          [routerLink]="['/edit', movie._id]"
-          mat-icon-button
-          color="primary"
-        >
-          <mat-icon>edit</mat-icon>
-          <span>Edit</span>
-        </button>
-      </div>
-      <div>
-        <button mat-icon-button color="warn" (click)="deleteHandler()">
-          <mat-icon>delete</mat-icon>
-          <span>Delete</span>
-        </button>
-      </div>
-    </div>
-  </mat-card-actions>
 </mat-card>
 
 <!-- <mat-card-subtitle

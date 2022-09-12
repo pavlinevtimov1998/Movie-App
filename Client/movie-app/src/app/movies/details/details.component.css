@@ -20,7 +20,7 @@ mat-card {
 }
 
 mat-card-actions {
-  padding: 20px 0;
+  margin-bottom: unset;
 }
 
 .modify {
@@ -30,4 +30,9 @@ mat-card-actions {
 
 .interaction {
   margin-left: 20px;
+}
+
+
+img {
+  width: 400px;
 }
