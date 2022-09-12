@@ -15,25 +15,9 @@ import { MovieService } from '../movie.service';
   styleUrls: ['./create.component.css'],
 })
 export class CreateComponent implements OnInit {
-  createmovieForm: FormGroup = this.formBuilder.group({
-    name: new FormControl(null, [
-      Validators.required,
-      Validators.minLength(5),
-      Validators.pattern(/[A-Za-z ]+/),
-    ]),
-    imageUrl: new FormControl(null, [
-      Validators.required,
-      Validators.pattern('((https://|http://).+(.jpg|.png))'),
-    ]),
-    genre: new FormControl(null, [
-      Validators.required,
-      Validators.pattern(/[A-Za-z ]+/),
-    ]),
-    description: new FormControl(null, [
-      Validators.required,
-      Validators.minLength(10),
-    ]),
-  });
+  isLoading = false;
+
+  createMovieForm!: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,10 +25,35 @@ export class CreateComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.createMovieForm = this.formBuilder.group({
+      name: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.pattern(/[A-Za-z ]+/),
+      ]),
+      imageUrl: new FormControl(null, [
+        Validators.required,
+        Validators.pattern('((https://|http://).+(.jpg|.png))'),
+      ]),
+      genre: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(/[A-Za-z ]+/),
+      ]),
+      description: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(10),
+      ]),
+    });
+  }
 
-  createmovieHandler() {
-    const { name, imageUrl, genre, description } = this.createmovieForm
+  createMovieHandler() {
+    if (this.createMovieForm.invalid) {
+      return;
+    }
+    this.isLoading = true;
+
+    const { name, imageUrl, genre, description } = this.createMovieForm
       .value as IMovie;
 
     const body = {
@@ -54,8 +63,13 @@ export class CreateComponent implements OnInit {
       description,
     };
 
-    this.movieService.createMovie(body).subscribe((response) => {
-      this.router.navigate(['/movies/details/' + response.movie._id]);
+    this.movieService.createMovie(body).subscribe({
+      next: (response) => {
+        this.router.navigate(['/movies/details/' + response.movie._id]);
+      },
+      error: (err) => {
+        console.log(err);
+      },
     });
   }
 }

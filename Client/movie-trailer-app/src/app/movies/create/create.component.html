@@ -1,198 +1,89 @@
-<section class="createPage">
-  <form [formGroup]="createmovieForm" (ngSubmit)="createmovieHandler()">
-    <fieldset>
-      <legend>Add movie</legend>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
 
-      <div class="container">
-        <label for="name" class="vhide">movie name</label>
+<section *ngIf="!isLoading" class="createPage">
+  <form [formGroup]="createMovieForm" (ngSubmit)="createMovieHandler()">
+    <fieldset fxLayout="column" fxLayoutAlign="center center">
+      <legend>Add Movie</legend>
+
+      <mat-form-field>
         <input
+          matInput
           formControlName="name"
           id="name"
-          name="name"
           class="name"
+          name="name"
           type="text"
-          placeholder="movie name"
+          placeholder="Movie Name"
         />
-
-        <ng-container
+        <mat-error
           *ngIf="
-            createmovieForm.controls['name'].touched &&
-            createmovieForm.controls['name'].errors?.['required']
+            createMovieForm.controls['name'].invalid &&
+            createMovieForm.controls['name'].touched
           "
+          >Movie name is invalid!</mat-error
         >
-          <p class="error">movie name is required!</p>
-        </ng-container>
-        <ng-container
-          *ngIf="
-            createmovieForm.controls['name'].touched &&
-            createmovieForm.controls['name'].errors?.['pattern'] &&  
-            !createmovieForm.controls['name'].errors?.['required']
-          "
-        >
-          <p class="error">movie should contains only letters!</p>
-        </ng-container>
+      </mat-form-field>
 
-        <label for="imageUrl" class="vhide">Image Url</label>
+      <mat-form-field>
         <input
+          matInput
           formControlName="imageUrl"
           id="imageUrl"
-          name="imageUrl"
           class="imageUrl"
+          name="imageUrl"
           type="text"
-          placeholder="Image Url"
+          placeholder="Image URL"
         />
-
-        <ng-container
+        <mat-error
           *ngIf="
-            createmovieForm.controls['imageUrl'].touched &&
-            createmovieForm.controls['imageUrl'].errors?.['required']
+            createMovieForm.controls['imageUrl'].invalid &&
+            createMovieForm.controls['imageUrl'].touched
           "
+          >Password is invalid!</mat-error
         >
-          <p class="error">movie image URL is required!</p>
-        </ng-container>
-        <ng-container
-          *ngIf="
-            createmovieForm.controls['imageUrl'].touched &&
-            createmovieForm.controls['imageUrl'].errors?.['pattern'] &&  
-            !createmovieForm.controls['imageUrl'].errors?.['required']
-          "
-        >
-          <p class="error">Invalid image URL!</p>
-        </ng-container>
+      </mat-form-field>
 
-        <label for="price" class="vhide">Price</label>
+      <mat-form-field>
         <input
-          formControlName="price"
-          id="price"
-          name="price"
-          class="price"
-          type="text"
-          placeholder="Price"
-        />
-
-        <mat-form-field>
-          <input
-            matInput
-            formControlName="releaseDate"
-            type="text"
-            placeholder="Release date"
-            [matDatepicker]="datePicker"
-          />
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="datePicker"
-          ></mat-datepicker-toggle>
-          <mat-datepicker #datePicker></mat-datepicker>
-        </mat-form-field>
-
-        <ng-container
-          *ngIf="
-            createmovieForm.controls['releaseDate'].touched &&
-            createmovieForm.controls['releaseDate'].errors?.['required']
-          "
-        >
-          <p class="error">movie release date is required!</p>
-        </ng-container>
-        <ng-container
-          *ngIf="
-            createmovieForm.controls['releaseDate'].touched &&
-            createmovieForm.controls['releaseDate'].errors?.['pattern'] &&  
-            !createmovieForm.controls['releaseDate'].errors?.['required']
-          "
-        >
-          <p class="error">
-            movie release date should contains only letters and digits!
-          </p>
-        </ng-container>
-
-        <label for="artist" class="vhide">Artist</label>
-        <input
-          formControlName="artist"
-          id="artist"
-          name="artist"
-          class="artist"
-          type="text"
-          placeholder="Artist"
-        />
-
-        <ng-container
-          *ngIf="
-            createmovieForm.controls['artist'].touched &&
-            createmovieForm.controls['artist'].errors?.['required']
-          "
-        >
-          <p class="error">movie artist is required!</p>
-        </ng-container>
-        <ng-container
-          *ngIf="
-            createmovieForm.controls['artist'].touched &&
-            createmovieForm.controls['artist'].errors?.['pattern'] &&  
-            !createmovieForm.controls['artist'].errors?.['required']
-          "
-        >
-          <p class="error">movie artist should contains only letters!</p>
-        </ng-container>
-
-        <label for="genre" class="vhide">Genre</label>
-        <input
+          matInput
           formControlName="genre"
           id="genre"
-          name="genre"
           class="genre"
+          name="genre"
           type="text"
           placeholder="Genre"
         />
-
-        <ng-container
+        <mat-error
           *ngIf="
-            createmovieForm.controls['genre'].touched &&
-            createmovieForm.controls['genre'].errors?.['required']
+            createMovieForm.controls['genre'].invalid &&
+            createMovieForm.controls['genre'].touched
           "
+          >Genre is invalid!</mat-error
         >
-          <p class="error">movie genre is required!</p>
-        </ng-container>
-        <ng-container
-          *ngIf="
-            createmovieForm.controls['genre'].touched &&
-            createmovieForm.controls['genre'].errors?.['pattern'] &&  
-            !createmovieForm.controls['genre'].errors?.['required']
-          "
-        >
-          <p class="error">movie genre should contains only letters!</p>
-        </ng-container>
+      </mat-form-field>
 
-        <label for="description" class="vhide">Description</label>
-        <textarea
+      <mat-form-field>
+        <input
+          matInput
           formControlName="description"
-          name="description"
+          id="description"
           class="description"
+          name="description"
+          type="text"
           placeholder="Description"
-        ></textarea>
-
-        <ng-container
+        />
+        <mat-error
           *ngIf="
-            createmovieForm.controls['description'].touched &&
-            createmovieForm.controls['description'].errors?.['required']
+            createMovieForm.controls['description'].invalid &&
+            createMovieForm.controls['description'].touched
           "
+          >Description is invalid!</mat-error
         >
-          <p class="error">movie description is required!</p>
-        </ng-container>
-        <ng-container
-          *ngIf="
-            createmovieForm.controls['description'].touched &&
-            createmovieForm.controls['description'].errors?.['minLength'] &&  
-            !createmovieForm.controls['description'].errors?.['required']
-          "
-        >
-          <p class="error">
-            movie description should be at least 10 characters!
-          </p>
-        </ng-container>
+      </mat-form-field>
 
-        <button [disabled]="createmovieForm.invalid" class="add-movie">
-          Add New movie
-        </button>
-      </div>
+      <button mat-raised-button color="primary" type="submit">
+        <mat-icon>movie</mat-icon> Add Movie
+      </button>
     </fieldset>
   </form>
 </section>
