@@ -40,14 +40,19 @@ export class DetailsComponent implements OnInit, OnDestroy {
             return this.movieService.getOne(movieId);
           })
         )
-        .subscribe((movieData) => {
-          this.isOwner = movieData.movie._ownerId == this.currentUser._id;
-          this.isLiked = !!movieData.movie.likes?.find(
-            (like) => like._ownerId == this.currentUser._id
-          );
-          this.movie = movieData.movie;
+        .subscribe({
+          next: (movieData) => {
+            this.isOwner = movieData.movie._ownerId == this.currentUser._id;
+            this.isLiked = !!movieData.movie.likes?.find(
+              (like) => like._ownerId == this.currentUser._id
+            );
+            this.movie = movieData.movie;
 
-          this.isLoading = false;
+            this.isLoading = false;
+          },
+          error: (err) => {
+            console.log(err);
+          },
         })
     );
   }
@@ -62,8 +67,13 @@ export class DetailsComponent implements OnInit, OnDestroy {
             return this.movieService.deleteMovie(movieId);
           })
         )
-        .subscribe(() => {
-          this.router.navigate(['/catalog']);
+        .subscribe({
+          next: () => {
+            this.router.navigate(['/catalog']);
+          },
+          error: (err) => {
+            console.log(err);
+          },
         })
     );
   }
@@ -79,12 +89,17 @@ export class DetailsComponent implements OnInit, OnDestroy {
             })
           )
 
-          .subscribe(() => {
-            this.movie.likes?.push({
-              _ownerId: this.currentUser._id,
-              movieId: this.movie._id,
-            });
-            this.isLiked = !this.isLiked;
+          .subscribe({
+            next: () => {
+              this.movie.likes?.push({
+                _ownerId: this.currentUser._id,
+                movieId: this.movie._id,
+              });
+              this.isLiked = !this.isLiked;
+            },
+            error: (err) => {
+              console.log(err);
+            },
           })
       );
     } else {
@@ -97,11 +112,16 @@ export class DetailsComponent implements OnInit, OnDestroy {
             })
           )
 
-          .subscribe(() => {
-            this.movie.likes = this.movie.likes?.filter(
-              (like) => like._ownerId !== this.currentUser._id
-            );
-            this.isLiked = !this.isLiked;
+          .subscribe({
+            next: () => {
+              this.movie.likes = this.movie.likes?.filter(
+                (like) => like._ownerId !== this.currentUser._id
+              );
+              this.isLiked = !this.isLiked;
+            },
+            error: (err) => {
+              console.log(err);
+            },
           })
       );
     }

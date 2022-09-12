@@ -29,13 +29,13 @@
           ><span>{{ movie.likes?.length }} Likes</span>
         </button>
       </div>
-
       <div *ngIf="!(isLoggedIn$ | async) || isOwner">
         <button color="warn" mat-icon-button>
           <mat-icon>favorite</mat-icon
           ><span>{{ movie.likes?.length }} Likes</span>
         </button>
       </div>
+
       <div>
         <button color="primary" mat-icon-button>
           <mat-icon>share</mat-icon><span>Share</span>
@@ -43,7 +43,7 @@
       </div>
     </div>
     <div fxFlex></div>
-    <div fxLayout="row" fxLayoutGap="30px" class="modify">
+    <div fxLayout="row" fxLayoutGap="30px" class="modify" *ngIf="isOwner">
       <div>
         <button mat-icon-button color="primary">
           <mat-icon>edit</mat-icon>
@@ -51,7 +51,7 @@
         </button>
       </div>
       <div>
-        <button mat-icon-button color="warn">
+        <button mat-icon-button color="warn" (click)="deleteHandler()">
           <mat-icon>delete</mat-icon>
           <span>Delete</span>
         </button>
