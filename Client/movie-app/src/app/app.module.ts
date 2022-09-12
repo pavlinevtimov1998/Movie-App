@@ -6,8 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { appRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { MoviesModule } from './movies/movies.module';
-import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth.service';
 import { MaterialModule } from './material.module';
 import { AuthGuard } from './auth/auth-guard.guard';
@@ -21,8 +19,6 @@ import { AuthGuard } from './auth/auth-guard.guard';
     CoreModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MoviesModule,
-    AuthModule,
   ],
   providers: [
     {
