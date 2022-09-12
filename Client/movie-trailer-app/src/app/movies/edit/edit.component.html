@@ -1,1 +1,89 @@
-<p>edit works!</p>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+
+<section *ngIf="!isLoading && movie" class="editPage">
+  <form [formGroup]="editMovieForm" (ngSubmit)="editMovieHandler()">
+    <fieldset fxLayout="column" fxLayoutAlign="center center">
+      <legend>Edit Movie</legend>
+
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="name"
+          id="name"
+          class="name"
+          name="name"
+          type="text"
+          placeholder="Movie Name"
+        />
+        <mat-error
+          *ngIf="
+            editMovieForm.controls['name'].invalid &&
+            editMovieForm.controls['name'].touched
+          "
+          >Movie name is invalid!</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="imageUrl"
+          id="imageUrl"
+          class="imageUrl"
+          name="imageUrl"
+          type="text"
+          placeholder="Image URL"
+        />
+        <mat-error
+          *ngIf="
+            editMovieForm.controls['imageUrl'].invalid &&
+            editMovieForm.controls['imageUrl'].touched
+          "
+          >Password is invalid!</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="genre"
+          id="genre"
+          class="genre"
+          name="genre"
+          type="text"
+          placeholder="Genre"
+        />
+        <mat-error
+          *ngIf="
+            editMovieForm.controls['genre'].invalid &&
+            editMovieForm.controls['genre'].touched
+          "
+          >Genre is invalid!</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="description"
+          id="description"
+          class="description"
+          name="description"
+          type="text"
+          placeholder="Description"
+        />
+        <mat-error
+          *ngIf="
+            editMovieForm.controls['description'].invalid &&
+            editMovieForm.controls['description'].touched
+          "
+          >Description is invalid!</mat-error
+        >
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">
+        <mat-icon>edit</mat-icon> Edit Movie
+      </button>
+    </fieldset>
+  </form>
+</section>
