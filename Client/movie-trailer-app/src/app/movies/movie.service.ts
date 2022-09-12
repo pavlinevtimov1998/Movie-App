@@ -27,6 +27,19 @@ export class MovieService {
     );
   }
 
+  editMovie(
+    body: IMovie,
+    movieId: string
+  ): Observable<{ status: string; movie: IMovie }> {
+    return this.http.put<{ status: string; movie: IMovie }>(
+      'http://localhost:3000/data/movies/' + movieId,
+      body,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
   likeMovie(body: {
     movieId: string;
   }): Observable<{ status: string; message: string }> {
