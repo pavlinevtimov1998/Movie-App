@@ -6,19 +6,26 @@
     <ul fxLayout>
       <li><a routerLink="/">Home</a></li>
       <li><a routerLink="/movies/catalog">Catalog</a></li>
-      <li><a href="javascript:void(0)">Search</a></li>
+      <li *ngIf="isLoggedIn$ | async" class="user">
+        <a routerLink="/movies/create">Create movie</a>
+      </li>
     </ul>
   </div>
   <div fxFlex></div>
   <div fxHide.lt-md>
     <ul fxLayout fxLayoutAlign="center center">
       <ng-container *ngIf="!(isLoggedIn$ | async)">
+        <li><a href="javascript:void(0)">Hello guest!</a></li>
         <li class="guest"><a routerLink="/users/login">Login</a></li>
         <li class="guest"><a routerLink="/users/register">Register</a></li>
       </ng-container>
 
       <ng-container *ngIf="isLoggedIn$ | async">
-        <li class="user"><a routerLink="/movies/create">Create movie</a></li>
+        <li class="user">
+          <a routerLink="/users/profile"
+            >{{ currentUser.username }}'s Profile</a
+          >
+        </li>
         <li class="user">
           <a href="javascript:void(0)" (click)="logoutHandler()" mat-button
             >Logout</a
