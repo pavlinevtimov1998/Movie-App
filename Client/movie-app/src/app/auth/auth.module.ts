@@ -6,10 +6,11 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { authRoutingModule } from './auth-routing.module';
 import { MaterialModule } from '../material.module';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileComponent } from './user-profile/profile/profile.component';
+import { UserMoviesComponent } from './user-profile/user-movies/user-movies.component';
 
 @NgModule({
-  declarations: [RegisterComponent, LoginComponent, ProfileComponent],
+  declarations: [RegisterComponent, LoginComponent, ProfileComponent, UserMoviesComponent],
   imports: [
     CommonModule,
     authRoutingModule,
