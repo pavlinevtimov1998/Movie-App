@@ -9,3 +9,8 @@
 mat-card {
   margin: 20px;
 }
+
+.mat-card-image {
+  width: 350px;
+  height: 500px;
+}
