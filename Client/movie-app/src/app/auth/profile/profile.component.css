@@ -1,0 +1,33 @@
+.card {
+  width: 500px;
+  margin: 50px auto;
+  position: relative;
+}
+
+mat-card-header {
+  text-align: center;
+}
+
+div.mat-card-avatar {
+  width: 150px;
+  height: 150px;
+}
+
+img {
+  width: 100%;
+  border-radius: 50%;
+}
+
+li {
+  list-style: none;
+}
+
+ul {
+  padding: 0;
+}
+
+.edit-btn {
+  position: absolute;
+  top: 0;
+  right: 20px;
+}

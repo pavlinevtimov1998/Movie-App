@@ -1,0 +1,35 @@
+<mat-tab-group mat-align-tabs="center">
+  <mat-tab label="First">
+    <mat-card class="card" fxLayout="column" fxLayoutAlign="center center">
+      <div mat-card-avatar>
+        <img
+          src="https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png"
+          alt=""
+        />
+      </div>
+      <mat-card-header>
+        <mat-card-title>pavlinevtimov</mat-card-title>
+        <mat-card-subtitle>ewtimow@yahoo.com</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <ul fxLayout fxLayoutGap="10px">
+          <li>
+            <button color="primary" mat-icon-button>
+              <mat-icon>facebook</mat-icon>
+            </button>
+          </li>
+          <li>
+            <button color="warn" mat-icon-button>
+              <mat-icon>mail</mat-icon>
+            </button>
+          </li>
+        </ul>
+        <button class="edit-btn" mat-icon-button color="primary">
+          <mat-icon>edit</mat-icon><span>Edit</span>
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </mat-tab>
+  <mat-tab label="Second">Content 2</mat-tab>
+  <mat-tab label="Third">Content 3</mat-tab>
+</mat-tab-group>
