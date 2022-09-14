@@ -1,28 +1,23 @@
 <mat-tab-group mat-align-tabs="center">
   <mat-tab label="Profile">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
     <mat-card
-      *ngIf="!isEditMode"
+      *ngIf="!isEditMode && !isLoading"
       class="card"
       fxLayout="column"
       fxLayoutAlign="center center"
     >
       <div mat-card-avatar>
+        <img *ngIf="currentUser.imageUrl" [src]="currentUser.imageUrl" alt="" />
         <img
-          *ngIf="(currentUser$ | async)!.imageUrl"
-          [src]="(currentUser$ | async)!.imageUrl"
-          alt=""
-        />
-        <img
-          *ngIf="(currentUser$ | async)!.imageUrl == null"
+          *ngIf="!currentUser.imageUrl"
           src="/assets/24-248253_user-profile-default-image-png-clipart-png-download.png"
           alt=""
         />
       </div>
       <mat-card-header>
-        <mat-card-title>{{ (currentUser$ | async)!.username }}</mat-card-title>
-        <mat-card-subtitle>{{
-          (currentUser$ | async)!.email
-        }}</mat-card-subtitle>
+        <mat-card-title>{{ currentUser.username }}</mat-card-title>
+        <mat-card-subtitle>{{ currentUser.email }}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         <ul fxLayout fxLayoutGap="10px">
@@ -49,7 +44,7 @@
     </mat-card>
 
     <mat-card
-      *ngIf="isEditMode"
+      *ngIf="isEditMode && !isLoading"
       class="card"
       fxLayout="column"
       fxLayoutAlign="center center"
@@ -102,7 +97,7 @@
         </mat-form-field>
 
         <button mat-raised-button color="primary" type="submit">
-          <mat-icon>login</mat-icon> Submit
+          <mat-icon>edit</mat-icon><span>Submit</span>
         </button>
 
         <p class="field">

@@ -1,18 +1,21 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from 'src/app/auth.service';
+import { IUser } from 'src/app/core/interfaces.ts/User-interface';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   isEditMode = false;
-  currentUser$ = this.authService.currentUser$;
+  currentUser!: IUser;
   profileEditForm!: FormGroup;
+
+  isLoading = false;
 
   subscribtion$ = new Subscription();
 
@@ -22,10 +25,19 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
+
+    this.subscribtion$.add(
+      this.authService.currentUser$.subscribe({
+        next: (user) => {
+          this.currentUser = user;
+          this.isLoading = false;
+        },
+      })
+    );
     this.profileEditForm = this.formBuilder.group({
-      username: new FormControl(null, []),
-      email: new FormControl(null, []),
-      imageUrl: new FormControl(null, []),
+      username: new FormControl(this.currentUser.username, []),
+      email: new FormControl(this.currentUser.email, []),
     });
   }
 
@@ -34,14 +46,31 @@ export class ProfileComponent implements OnInit {
       return;
     }
 
-    const { username, email, imageUrl } = this.profileEditForm.value;
+    this.isLoading = true;
+
+    const { username, email } = this.profileEditForm.value;
 
     const body = {
       username,
       email,
-      imageUrl,
     };
 
-    this.isEditMode = false;
+    this.authService
+      .editProfile(body, this.currentUser._id as string)
+      .subscribe({
+        next: (response) => {
+          this.currentUser = response.user;
+          this.authService.handleLogin(response.user);
+          this.isLoading = false;
+          this.isEditMode = false;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.subscribtion$.unsubscribe();
   }
 }
