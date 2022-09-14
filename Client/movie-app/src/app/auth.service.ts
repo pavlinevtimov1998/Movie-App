@@ -4,7 +4,9 @@ import { Observable, BehaviorSubject, map, tap, catchError, EMPTY } from 'rxjs';
 
 import { IUser } from './core/interfaces.ts/User-interface';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
   guest: IUser = {
     username: '',
