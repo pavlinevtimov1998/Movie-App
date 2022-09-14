@@ -5,7 +5,7 @@ import { Observable, BehaviorSubject, map, tap, catchError, EMPTY } from 'rxjs';
 import { IUser } from './core/interfaces.ts/User-interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   guest: IUser = {
@@ -56,6 +56,19 @@ export class AuthService {
 
   handleLogout() {
     this._currentUser.next(this.guest);
+  }
+
+  editProfile(
+    body: IUser,
+    userId: string
+  ): Observable<{ status: string; user: IUser }> {
+    return this.http.patch<{ status: string; user: IUser }>(
+      'http://localhost:3000/users/edit/' + userId,
+      body,
+      {
+        withCredentials: true,
+      }
+    );
   }
 
   authenticate(): Observable<{ status: string; user: IUser }> {
