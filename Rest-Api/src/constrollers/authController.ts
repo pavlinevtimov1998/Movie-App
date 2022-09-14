@@ -103,4 +103,27 @@ router.get(
   })
 );
 
+router.patch(
+  "/edit/:userId",
+  authMiddleware,
+  catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.params.userId;
+    const data = req.body;
+
+    const user = await User.findByIdAndUpdate(
+      userId,
+      {
+        username: data.username,
+        email: data.email,
+      },
+      { new: true }
+    );
+
+    console.log(user);
+    
+
+    res.status(201).json({ status: "Successfull!", user });
+  })
+);
+
 export default router;
