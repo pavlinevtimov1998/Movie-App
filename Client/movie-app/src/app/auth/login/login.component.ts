@@ -14,10 +14,8 @@ import { AuthService } from '../../auth.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup = this.formBuilder.group({
-    username: new FormControl(null, [Validators.required]),
-    password: new FormControl(null, [Validators.required]),
-  });
+  isLoading = false;
+  loginForm!: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,12 +23,19 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      username: new FormControl(null, [Validators.required]),
+      password: new FormControl(null, [Validators.required]),
+    });
+  }
 
   loginHandler() {
     if (this.loginForm.invalid) {
       return;
     }
+
+    this.isLoading = true;
 
     const { username, password } = this.loginForm.value;
 

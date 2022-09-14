@@ -42,3 +42,14 @@ fieldset {
   border-radius: 2px;
   border-color: rgb(63, 81, 181);
 }
+
+mat-spinner {
+  position: fixed;
+  z-index: 999;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}

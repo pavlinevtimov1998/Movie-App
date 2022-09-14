@@ -1,5 +1,6 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
 <section id="loginPage">
-  <form [formGroup]="loginForm" (ngSubmit)="loginHandler()">
+  <form *ngIf="!isLoading" [formGroup]="loginForm" (ngSubmit)="loginHandler()">
     <fieldset fxLayout="column" fxLayoutAlign="center center">
       <legend>Login</legend>
       <mat-form-field>
