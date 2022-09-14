@@ -23,7 +23,7 @@
       <ng-container *ngIf="isLoggedIn$ | async">
         <li class="user">
           <a routerLink="/users/profile"
-            >{{ currentUser.username }}'s Profile</a
+            >{{ (currentUser$ | async)!.username }}'s Profile</a
           >
         </li>
         <li class="user">

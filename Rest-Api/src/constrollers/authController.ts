@@ -119,9 +119,6 @@ router.patch(
       { new: true }
     );
 
-    console.log(user);
-    
-
     res.status(201).json({ status: "Successfull!", user });
   })
 );

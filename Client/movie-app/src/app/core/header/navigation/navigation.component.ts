@@ -12,25 +12,13 @@ import { IUser } from '../../interfaces.ts/User-interface';
 })
 export class NavigationComponent implements OnInit {
   @Input() sideNav!: MatSidenav;
-  subscribtion = new Subscription();
 
   isLoggedIn$ = this.authService.isLoggedIn$;
-  currentUser!: IUser;
+  currentUser$ = this.authService.currentUser$;
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {
-    this.subscribtion.add(
-      this.authService.currentUser$.subscribe({
-        next: (user) => {
-          this.currentUser = user;
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      })
-    );
-  }
+  ngOnInit(): void {}
 
   logoutHandler() {
     this.authService.logout$().subscribe(() => {
