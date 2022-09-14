@@ -1,6 +1,11 @@
 <mat-tab-group mat-align-tabs="center">
   <mat-tab label="Profile">
-    <mat-card class="card" fxLayout="column" fxLayoutAlign="center center">
+    <mat-card
+      *ngIf="!isEditMode"
+      class="card"
+      fxLayout="column"
+      fxLayoutAlign="center center"
+    >
       <div mat-card-avatar>
         <img
           *ngIf="(currentUser$ | async)!.imageUrl"
@@ -32,10 +37,81 @@
             </button>
           </li>
         </ul>
-        <button class="edit-btn" mat-icon-button color="primary">
+        <button
+          class="edit-btn"
+          mat-icon-button
+          color="primary"
+          (click)="isEditMode = true"
+        >
           <mat-icon>edit</mat-icon><span>Edit</span>
         </button>
       </mat-card-content>
+    </mat-card>
+
+    <mat-card
+      *ngIf="isEditMode"
+      class="card"
+      fxLayout="column"
+      fxLayoutAlign="center center"
+    >
+      <form
+        [formGroup]="profileEditForm"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+        fxLayoutGap="20px"
+        [formGroup]="profileEditForm"
+        (ngSubmit)="profileEditHandler()"
+      >
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="username"
+            id="username"
+            class="username"
+            name="username"
+            type="text"
+            placeholder="Username"
+          />
+          <!-- <mat-error
+            *ngIf="
+              loginForm.controls['username'].invalid &&
+              loginForm.controls['username'].touched
+            "
+            >Username is invalid!</mat-error
+          > -->
+        </mat-form-field>
+
+        <!-- <mat-form-field hintLabel="Should be at least 6 characters!"> -->
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="email"
+            id="email"
+            class="email"
+            name="email"
+            type="text"
+            placeholder="Email"
+          />
+          <!-- <mat-error
+            *ngIf="
+              loginForm.controls['password'].invalid &&
+              loginForm.controls['password'].touched
+            "
+            >Password is invalid!</mat-error
+          > -->
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit">
+          <mat-icon>login</mat-icon> Submit
+        </button>
+
+        <p class="field">
+          <span
+            >If you don't have profile click
+            <a routerLink="/user/register">here</a></span
+          >
+        </p>
+      </form>
     </mat-card>
   </mat-tab>
   <mat-tab label="My Movies">

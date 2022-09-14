@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
+
 import { AuthService } from 'src/app/auth.service';
 
 @Component({
@@ -7,9 +10,38 @@ import { AuthService } from 'src/app/auth.service';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
+  isEditMode = false;
   currentUser$ = this.authService.currentUser$;
+  profileEditForm!: FormGroup;
 
-  constructor(private authService: AuthService) {}
+  subscribtion$ = new Subscription();
 
-  ngOnInit(): void {}
+  constructor(
+    private authService: AuthService,
+    private formBuilder: FormBuilder
+  ) {}
+
+  ngOnInit(): void {
+    this.profileEditForm = this.formBuilder.group({
+      username: new FormControl(null, []),
+      email: new FormControl(null, []),
+      imageUrl: new FormControl(null, []),
+    });
+  }
+
+  profileEditHandler() {
+    if (this.profileEditForm.invalid) {
+      return;
+    }
+
+    const { username, email, imageUrl } = this.profileEditForm.value;
+
+    const body = {
+      username,
+      email,
+      imageUrl,
+    };
+
+    this.isEditMode = false;
+  }
 }
