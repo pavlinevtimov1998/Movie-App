@@ -19,6 +19,8 @@ export class RegisterComponent implements OnInit {
   passwordControll!: FormControl;
   registerForm!: FormGroup;
 
+  isLoading = false;
+
   get passwords(): FormGroup {
     return this.registerForm.controls['passwords'] as FormGroup;
   }
@@ -52,6 +54,8 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid) {
       return;
     }
+
+    this.isLoading = true;
 
     const { username, email, passwords } = this.registerForm.value;
 

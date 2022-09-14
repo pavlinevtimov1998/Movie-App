@@ -1,5 +1,10 @@
+<mat-spinner *ngIf="!isLoading"></mat-spinner>
 <section id="registerPage">
-  <form [formGroup]="registerForm" (ngSubmit)="registerHandler()">
+  <form
+    *ngIf="!isLoading"
+    [formGroup]="registerForm"
+    (ngSubmit)="registerHandler()"
+  >
     <fieldset fxLayout="column" fxLayoutAlign="center center">
       <legend>Register</legend>
       <mat-form-field>
@@ -63,9 +68,7 @@
           Password is invalid!</mat-error
         >
       </mat-form-field>
-      <mat-form-field
-      [formGroup]="passwords"
-      >
+      <mat-form-field [formGroup]="passwords">
         <input
           matInput
           id="conf-pass"
