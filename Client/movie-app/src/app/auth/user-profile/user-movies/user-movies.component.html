@@ -1,46 +1,35 @@
-<section>
-
-
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<section *ngIf="!isLoading">
+  <ng-container *ngFor="let movie of movies">
     <mat-card class="example-card" fxFlex.xs="100%" fxFlex="350px">
-        <mat-card-header fxLayoutAlign="center center">
-          <mat-card-title></mat-card-title>
-          <div fxFlex></div>
-          <button
-            class="details-btn"
-            mat-raised-button
-            color="primary"
-            
-          >
-            <mat-icon>movie</mat-icon><span>Details</span>
+      <mat-card-header fxLayoutAlign="center center">
+        <mat-card-title>{{ movie.name }}</mat-card-title>
+        <div fxFlex></div>
+        <button
+          class="details-btn"
+          mat-raised-button
+          color="primary"
+          [routerLink]="['/movies/details', movie._id]"
+        >
+          <mat-icon>movie</mat-icon><span>Details</span>
+        </button>
+      </mat-card-header>
+      <img mat-card-image [src]="movie.imageUrl" />
+      <mat-card-content>
+        <p>Genre: {{ movie.genre }}</p>
+      </mat-card-content>
+      <mat-card-actions fxLayout>
+        <div>
+          <button color="warn" mat-icon-button>
+            <mat-icon>favorite</mat-icon>
+            <span>{{ movie.likes?.length }} likes</span>
           </button>
-        </mat-card-header>
-        <img mat-card-image [src]="" />
-        <mat-card-content>
-          <p>Genre: .genre }}</p>
-        </mat-card-content>
-        <mat-card-actions fxLayout>
-          <div >
-            <button
-              color="warn"
-              mat-icon-button
-             
-            >
-              <mat-icon></mat-icon>
-              <span>.likes?.length }} likes</span>
-            </button>
-          </div>
-          <div >
-            <button color="warn" mat-icon-button>
-              <mat-icon>favorite</mat-icon>
-              <span>.</span>
-            </button>
-          </div>
-          <div fxFlex></div>
-          <button color="primary" mat-icon-button>
-            <mat-icon>share</mat-icon>
-          </button>
-        </mat-card-actions>
-      </mat-card>
-
-
+        </div>
+        <div fxFlex></div>
+        <button color="primary" mat-icon-button>
+          <mat-icon>share</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
 </section>

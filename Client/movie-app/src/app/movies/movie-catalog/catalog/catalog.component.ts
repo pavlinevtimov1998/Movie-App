@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { IMovie } from 'src/app/core/interfaces.ts/Movie-Interface';
-import { MovieService } from '../../movie.service';
+import { MovieService } from '../../../movie.service';
 
 @Component({
   selector: 'app-catalog',

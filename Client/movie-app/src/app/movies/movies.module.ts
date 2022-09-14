@@ -6,7 +6,7 @@ import { CatalogComponent } from './movie-catalog/catalog/catalog.component';
 import { MovieItemComponent } from './movie-catalog/movie-item/movie-item.component';
 import { DetailsComponent } from './details/details.component';
 import { MoviesRoutingModule } from './movie-routing.module';
-import { MovieService } from './movie.service';
+import { MovieService } from '../movie.service';
 import { CreateComponent } from './create/create.component';
 import { EditComponent } from './edit/edit.component';
 import { MaterialModule } from '../material.module';
@@ -27,6 +27,6 @@ import { DeleteMoviePostComponent } from './details/dialog.component';
     ReactiveFormsModule,
     MaterialModule,
   ],
-  providers: [MovieService],
+  providers: [],
 })
 export class MoviesModule {}

@@ -18,6 +18,11 @@ import { NavListComponent } from './header/nav-list/nav-list.component';
   ],
   imports: [CommonModule, RouterModule, MaterialModule],
 
-  exports: [NavigationComponent, FooterComponent, HomeComponent, NavListComponent],
+  exports: [
+    NavigationComponent,
+    FooterComponent,
+    HomeComponent,
+    NavListComponent,
+  ],
 })
 export class CoreModule {}

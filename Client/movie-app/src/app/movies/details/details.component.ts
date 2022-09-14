@@ -7,7 +7,7 @@ import { DeleteMoviePostComponent } from './dialog.component';
 import { AuthService } from 'src/app/auth.service';
 import { IMovie } from 'src/app/core/interfaces.ts/Movie-Interface';
 import { IUser } from 'src/app/core/interfaces.ts/User-interface';
-import { MovieService } from '../movie.service';
+import { MovieService } from '../../movie.service';
 
 @Component({
   selector: 'app-details',

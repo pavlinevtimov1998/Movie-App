@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { combineLatest, mergeMap, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
 import { IMovie } from 'src/app/core/interfaces.ts/Movie-Interface';
-import { MovieService } from '../../movie.service';
+import { MovieService } from '../../../movie.service';
 
 @Component({
   selector: 'app-movie-item',

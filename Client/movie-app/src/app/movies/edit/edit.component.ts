@@ -5,7 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { MovieService } from '../movie.service';
+import { MovieService } from '../../movie.service';
 import { mergeMap, Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IMovie } from 'src/app/core/interfaces.ts/Movie-Interface';

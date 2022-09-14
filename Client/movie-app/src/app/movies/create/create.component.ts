@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IMovie } from 'src/app/core/interfaces.ts/Movie-Interface';
-import { MovieService } from '../movie.service';
+import { MovieService } from '../../movie.service';
 
 @Component({
   selector: 'app-create',
