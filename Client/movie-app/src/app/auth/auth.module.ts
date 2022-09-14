@@ -18,6 +18,6 @@ import { UserMoviesComponent } from './user-profile/user-movies/user-movies.comp
     MaterialModule,
   ],
   providers: [],
-  exports: [RegisterComponent, LoginComponent],
+  exports: [],
 })
 export class AuthModule {}
