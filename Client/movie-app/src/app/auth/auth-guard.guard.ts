@@ -35,6 +35,7 @@ export class AuthGuard implements CanActivate {
       return false;
     }
 
+    this.subscription.unsubscribe();
     return true;
   }
 }
